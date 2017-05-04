@@ -23,12 +23,16 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
-    }
+    },
+		{
+			path: '*',
+			redirect: '/splash'
+		}
   ]
-});
+})
 
 router.beforeEach((to, from, next) => {
     next();
-});
+})
 
 export default router

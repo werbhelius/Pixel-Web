@@ -1,11 +1,17 @@
-<template>
-  <h1>splash</h1>
+<template lang="html">
+  <h1>Pixel-Web</h1>
 </template>
-
+ 
 <script>
-
+export default {
+  name: "splash",
+  data() {
+    return {
+    };
+  }
+}
 </script>
-
-<style>
+ 
+<style lang="css">
 
 </style>
