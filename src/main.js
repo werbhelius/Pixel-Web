@@ -9,7 +9,7 @@ import 'vue-material/dist/vue-material.css'
 Vue.config.productionTip = false
 /* eslint-disable no-new */
 
-Vue.use(VueMaterial)
+Vue.use(VueMaterial);
 
 new Vue({
   el: '#app',
