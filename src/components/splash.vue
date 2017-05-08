@@ -28,10 +28,10 @@ export default {
       }, 1500);
     },
     goLogin() {
-      this.$router.push({ path: "/login" });
+      this.$router.replace({ name: 'login' });
     },
     goMain() {
-      this.$router.push({ path: "/main" });
+      this.$router.replace({ name: 'main' });
     }
   }
 }

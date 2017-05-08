@@ -11,6 +11,7 @@ const router = new Router({
   routes: [
     {
       path: '/login',
+      name: 'login',
       component: login
     },
     {
@@ -19,6 +20,7 @@ const router = new Router({
     },
     {
       path: '/main',
+      name: 'main',
       component: main,
       meta: {
         requiresAuth: true
