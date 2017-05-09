@@ -3,11 +3,11 @@ import { HOST_CONCIG, KEY_CONFIG, API_ROUTER_CONFIG } from '../../api/config/api
 
 export const oauthPost = (code) => {
     var oauthData = {
-        "client_id": KEY_CONFIG.app_key,
-        "client_secret": KEY_CONFIG.app_secret,
-        "grant_type": "authorization_code",
-        "code": code,
-        "redirect_uri": KEY_CONFIG.redirect_uri
+        client_id: KEY_CONFIG.app_key,
+        client_secret: KEY_CONFIG.app_secret,
+        grant_type: 'authorization_code',
+        code: code,
+        redirect_uri: KEY_CONFIG.redirect_uri
     }
 
     var config = {
@@ -15,7 +15,9 @@ export const oauthPost = (code) => {
         url: API_ROUTER_CONFIG.oauth_post,
         baseURL: HOST_CONCIG.host,
         data: oauthData,
-        withCredentials: true
+        headers: {
+            'Content-Type': 'application/json'
+        }
     }
 
     return axios(config);
