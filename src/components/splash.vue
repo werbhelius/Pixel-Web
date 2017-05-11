@@ -3,22 +3,25 @@
 </template>
  
 <script>
-
-import { getToken } from '../utils/token-storage';
-
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: "splash",
-  data() {
-    return {
-    };
+  computed: {
+    ...mapGetters([
+      'token'
+    ]),
   },
   mounted() {
     this.checkOAuth();
   },
   methods: {
+    ...mapActions([
+      'getToken'
+    ]),
     checkOAuth() {
-      var vue = this;
-      var token = getToken();
+      let vue = this
+      vue.getToken();
+      let token = this.token;
       setTimeout(function () {
         if (!token) {
           vue.goLogin();

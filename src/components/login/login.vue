@@ -6,7 +6,7 @@
 
 import { HOST_CONCIG, KEY_CONFIG } from '../../api/config/api-config'
 import { getUrlKey } from '../../utils/string-utils'
-import { oauthPost } from '../../api/impl/auth'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: "login",
@@ -14,10 +14,13 @@ export default {
     this.checkUrl();
   },
   methods: {
+    ...mapActions([
+      'login'
+    ]),
     checkUrl() {
       var code = getUrlKey("code");
       if (code != null) {
-         oauthPost(code);
+         this.login(code)
       }
     },
     oauth() {

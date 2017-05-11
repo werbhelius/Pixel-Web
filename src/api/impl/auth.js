@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { HOST_CONCIG, KEY_CONFIG, API_ROUTER_CONFIG } from '../../api/config/api-config'
+import { logger } from '../../utils/logger'
 
-export const oauthPost = (code) => {
+export const oauthPost = (code, okCallback, errorCallback) => {
     var oauthData = {
         client_id: KEY_CONFIG.app_key,
         client_secret: KEY_CONFIG.app_secret,
@@ -20,5 +21,13 @@ export const oauthPost = (code) => {
         }
     }
 
-    return axios(config);
+    axios(config)
+        .then(function (response) {
+            logger("oauthPost-ok", response)
+            okCallback(response)
+        })
+        .catch(function (error) {
+            console.log(error);
+            errorCallback(error)
+        })
 }
