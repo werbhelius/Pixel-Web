@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import login from '../components/login/login'
 import main from '../components/pixel/main'
 import splash from '../components/splash'
+import store from '../store/'
 
 Vue.use(Router)
 
@@ -26,15 +27,29 @@ const router = new Router({
         requiresAuth: true
       }
     },
-		{
-			path: '*',
-			redirect: '/splash'
-		}
+    {
+      path: '*',
+      redirect: '/splash'
+    }
   ]
 })
 
+
 router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth) {
+    store.dispatch('getToken')
+    const accesstoken = store.getters.token
+    if (accesstoken) {
+      next();
+    }
+    else {
+      next({
+        path: '/login'
+      })
+    }
+  } else {
     next();
+  }
 })
 
 export default router

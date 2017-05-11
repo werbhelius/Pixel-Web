@@ -63,7 +63,7 @@ const actions = {
     getToken: ({ commit }) => {
         const token = getToken();
         if (token) {
-            commit(LOGIN, token)
+            commit(LOGIN, JSON.parse(token))
         }
     }
 }
