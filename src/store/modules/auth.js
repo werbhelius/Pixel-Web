@@ -51,11 +51,9 @@ const actions = {
         oauthPost(
             code,
             response => {
-                console.log("okok");
                 commit(LOGIN, response.data)
             },
             err => {
-                console.log("error-error");
                 console.log(err);
             }
         )

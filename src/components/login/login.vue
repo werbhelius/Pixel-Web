@@ -1,15 +1,44 @@
 <template lang="html">
-    <md-button id="login-btn" class="md-raised md-primary" @click.native="oauth" >Login</md-button>
+<div>
+      <md-button id="login-btn" class="md-raised md-primary" @click.native="oauth" >Login</md-button>
+      <div id="auth-loading">
+          <md-spinner v-show="code" :md-size="45" md-indeterminate ></md-spinner>
+      </div>
+</div>
+    
 </template>
 
 <script>
 
 import { HOST_CONCIG, KEY_CONFIG } from '../../api/config/api-config'
 import { getUrlKey } from '../../utils/string-utils'
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: "login",
+  data() {
+    return {
+      oauthCode: getUrlKey('code')
+    }
+  },
+  computed: {
+    code: function () {
+      if (this.oauthCode) {
+        return true
+      } else {
+        return false
+      }
+    },
+    ...mapGetters([
+      'token'
+    ]),
+  },
+  watch: {
+    token: function (val, oldVal) {
+      console.log(val);
+      console.log(oldVal);
+    }
+  },
   mounted() {
     this.checkUrl();
   },
@@ -18,9 +47,8 @@ export default {
       'login'
     ]),
     checkUrl() {
-      var code = getUrlKey("code");
-      if (code != null) {
-         this.login(code)
+      if (this.code) {
+        this.login(this.oauthCode)
       }
     },
     oauth() {
@@ -44,5 +72,16 @@ export default {
   font-size: 14px;
   padding: 4px 0;
   border-radius: 25px;
+}
+
+#auth-loading {
+  background: #ffffff;
+  position: absolute;
+  width: 240px;
+  height: 56px;
+  margin-left: -120px;
+  margin-top: -56px;
+  left: 50%;
+  top: 50%;
 }
 </style>
