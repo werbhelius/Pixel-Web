@@ -10,7 +10,8 @@ const host_config = {
 }
 
 const api_router_config = {
-    oauth_post: '/oauth2/access_token'
+    oauth_post: '/oauth2/access_token',
+    home_timeline: '/statuses/home_timeline.json'
 }
 
 export const HOST_CONCIG = host_config;
