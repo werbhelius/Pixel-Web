@@ -38,7 +38,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {
     store.dispatch('getToken')
-    const accesstoken = store.getters.token
+    const accesstoken = store.getters.access_token
     if (accesstoken) {
       next();
     }

@@ -29,14 +29,15 @@ export default {
         return false
       }
     },
-    ...mapGetters([
-      'token'
-    ]),
+    ...mapGetters({
+      access_token: 'access_token'
+    }),
   },
   watch: {
-    token: function (val, oldVal) {
-      console.log(val);
-      console.log(oldVal);
+    access_token: function(val, oldVal){
+      if(val){
+        this.goMain()
+      }
     }
   },
   mounted() {
@@ -56,6 +57,12 @@ export default {
       var redirect_uri = KEY_CONFIG.redirect_uri;
       var oauthUrl = HOST_CONCIG.oauth;
       window.open(oauthUrl + '?client_id=' + client_id + '&redirect_uri=' + redirect_uri, "_self", "", true);
+    },
+    goMain() {
+      let vue = this
+      setTimeout(function () {
+        vue.$router.replace({ name: 'main' });
+      }, 2000);
     }
   },
 

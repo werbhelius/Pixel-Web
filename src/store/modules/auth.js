@@ -8,13 +8,15 @@ import { saveToken, clearToken, getToken } from '../../utils/token-storage'
 import { oauthPost } from '../../api/impl/auth'
 
 const state = {
-    token: {},
+    token: {
+        access_token : null
+    },
     login: false,
     logout: true
 }
 
 const getters = {
-    token: state => state.token.access_token
+    access_token: state => state.token.access_token
 }
 
 const mutations = {
@@ -34,10 +36,7 @@ const mutations = {
     //logout and clear token
     [LOGOUT](state) {
         //clear state
-        state.token.access_token = ""
-        state.token.expires_in = ""
-        state.token.remind_in = ""
-        state.token.uid = ""
+        state.token = {}
         state.login = false
         state.logout = true
         //clear token
