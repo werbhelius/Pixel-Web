@@ -6,11 +6,11 @@ import store from '../../store/'
 
 export const getHomeTimeline = (page, okCallback, errorCallback) => {
 
-    const accesstoken = store.getters.access_token
+    const accesstoken = store.getters.token.access_token
 
     var request_data = {
         access_token: accesstoken,
-        count: 1,
+        count: 30,
         page: page
     }
 
@@ -27,7 +27,7 @@ export const getHomeTimeline = (page, okCallback, errorCallback) => {
     axios(config)
         .then(function (response) {
             logger("oauthPost-ok", response)
-            okCallback(response)
+            okCallback(response.data)
         })
         .catch(function (error) {
             console.log(error);

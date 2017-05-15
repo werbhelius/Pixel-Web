@@ -8,16 +8,14 @@ import { saveToken, clearToken, getToken } from '../../utils/token-storage'
 import { oauthPost } from '../../api/impl/auth'
 
 const state = {
-    token: {
-        access_token : null
-    },
+    token: {},
     login: false,
     logout: true
 }
 
-const getters = {
-    access_token: state => state.token.access_token
-}
+// const getters = {
+//     access_token: state => state.token
+// }
 
 const mutations = {
     //login and save token
@@ -67,7 +65,6 @@ const actions = {
 
 export default {
     state,
-    getters,
     actions,
     mutations
 }

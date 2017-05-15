@@ -38,8 +38,8 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {
     store.dispatch('getToken')
-    const accesstoken = store.getters.access_token
-    if (accesstoken) {
+    const login = store.getters.login
+    if (login) {
       next();
     }
     else {

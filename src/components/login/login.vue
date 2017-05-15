@@ -1,5 +1,5 @@
 <template lang="html">
-<div>
+<div class="login-div">
       <md-button id="login-btn" class="md-raised md-primary" @click.native="oauth" >Login</md-button>
       <div id="auth-loading">
           <md-spinner v-show="code" :md-size="45" md-indeterminate ></md-spinner>
@@ -30,12 +30,12 @@ export default {
       }
     },
     ...mapGetters({
-      access_token: 'access_token'
+      loginState: 'login'
     }),
   },
   watch: {
-    access_token: function(val, oldVal){
-      if(val){
+    loginState: function (val, oldVal) {
+      if (val) {
         this.goMain()
       }
     }
@@ -70,10 +70,12 @@ export default {
 </script>
 
 <style lang="css">
+
 #login-btn {
   position: absolute;
   bottom: 20vw;
   width: 240px;
+  left: 50%;
   margin-left: -120px;
   text-transform: none;
   font-size: 14px;
@@ -82,7 +84,6 @@ export default {
 }
 
 #auth-loading {
-  background: #ffffff;
   position: absolute;
   width: 240px;
   height: 56px;
