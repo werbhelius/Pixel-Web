@@ -1,5 +1,9 @@
 <template lang="html">
-    <div>
+    <div class="main">
+        <header class="user-header">
+            <img class="header-avatar" src="../../assets/icon.png">
+        </header>
+
         <div class="list" v-for="x in list">
            <div class="list-header">
                 <img class="avatar" v-if="x.user" :src="x.user.avatar_large">
@@ -7,10 +11,10 @@
                     <h3 class="user-name" v-if="x.user">{{x.user.name}}</h3>
                     <span class="user-source">来自 Pixel.Web</span>
                 </div>
-                <span class="user-time">2小时前</span>
+                <span class="user-time" >{{formatTime(x.created_at)}}</span>
             </div>
             <div class="list-content">
-                <span class="content-text">{{x.text}}</span>
+                <span class="content-text" v-html="formatContent(x.text)"></span>
             </div>
         </div>
     </div>
@@ -20,6 +24,10 @@
 <script>
 
 import { getHomeTimeline } from '../../api/impl/home-timeline'
+import { getUserInfo } from '../../api/impl/userInfo'
+import * as DateUtils from '../../utils/date-utils'
+import * as StringUtils from '../../utils/string-utils'
+import { mapGetters } from 'vuex'
 
 export default {
     name: "main",
@@ -30,10 +38,25 @@ export default {
             page: 1
         }
     },
+    computed: {
+        ...mapGetters({
+            token: 'token'
+        }),
+    },
     created() {
-        this.homeTimeline(this.page)
+        // this.userInfo(this.token.uid)
+        // this.homeTimeline(this.page)
     },
     methods: {
+        userInfo(uid) {
+            getUserInfo(uid, null,
+                data => {
+
+                },
+                err => {
+
+                })
+        },
         homeTimeline(page) {
             var vue = this;
             getHomeTimeline(
@@ -55,17 +78,48 @@ export default {
                 this.page++
                 homeTimeline(this.page)
             }, 500)
+        },
+        formatTime(time) {
+            return DateUtils.format(time);
+        },
+        formatContent(content) {
+            return StringUtils.formatContent(content)
         }
     }
 }
 </script>
 
 <style lang="css">
+.user-header {
+    width: 100%;
+    height: 8rem;
+    background: #ffffff;
+    margin-bottom: 1.5rem;
+    z-index: 250;
+    position: fixed;
+    top: 0px;
+    padding: 1rem;
+}
+
+.user-header .header-avatar {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, .05);
+    position: absolute;
+    right: 0px;
+    margin: 0 1rem
+}
+
+a {
+    color: #007AFF;
+}
+
 .list {
     background-color: #fff;
     border-radius: 2px;
     padding: 1rem;
-    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
 }
 
@@ -116,5 +170,9 @@ export default {
 .list .list-content .content-text {
     font-size: 1.3rem;
     line-height: 1rem;
+}
+
+.list .list-content .content-at {
+    color: #007AFF;
 }
 </style>
