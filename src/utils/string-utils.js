@@ -22,3 +22,12 @@ export const formatContent = (content) => {
 
     return format;
 }
+
+export const formatImgMiddle = (img) => {
+
+    let format = img.replace('thumbnail', 'thumb180');
+
+    format = format.replace('wx1', 'wx3')
+
+    return format
+}

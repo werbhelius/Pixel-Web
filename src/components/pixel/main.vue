@@ -5,43 +5,26 @@
             <span class="header-name">{{userInfo.name}}</span>
         </div>
         <nav class="switch-tab" :class="tabFixed?'tab-fixed':''">
-            <span class="tab-tag" >主页</span>
-            <span class="tab-tag" >探索</span>
-            <span class="tab-tag" >消息</span>
+            <span class="tab-tag" :class="currentPage == 'home'?'tab-select':''" >主页</span>
+            <span class="tab-tag" :class="currentPage == 'explore'?'tab-select':''">探索</span>
+            <span class="tab-tag" :class="currentPage == 'message'?'tab-select':''">消息</span>
         </nav>
-
-        <div class="list"  v-for="x in list">
-           <div class="list-header">
-                <img class="avatar" v-if="x.user" :src="x.user.avatar_large">
-                <div class="user-info">
-                    <h3 class="user-name" v-if="x.user">{{x.user.name}}</h3>
-                    <span class="user-source">来自 Pixel.Web</span>
-                </div>
-                <span class="user-time" >{{formatTime(x.created_at)}}</span>
-            </div>
-            <div class="list-content">
-                <span class="content-text" v-html="formatContent(x.text)"></span>
-            </div>
+        <div id="content">
+            <router-view></router-view>
         </div>
     </div>
-    
 </template>
 
 <script>
 
-import { getHomeTimeline } from '../../api/impl/home-timeline'
-import * as DateUtils from '../../utils/date-utils'
-import * as StringUtils from '../../utils/string-utils'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
     name: "main",
     data() {
         return {
-            list: [],
-            loading: false,
-            page: 1,
-            tabFixed: false
+            tabFixed: false,
+            currentPage: 'home'
         }
     },
     computed: {
@@ -52,7 +35,7 @@ export default {
     },
     created() {
         this.getUserInfo(this.token.uid)
-        this.homeTimeline(this.page)
+        this.showHomePage()
     },
     mounted() {
         let vue = this
@@ -69,33 +52,9 @@ export default {
         ...mapActions([
             'getUserInfo'
         ]),
-        homeTimeline(page) {
-            var vue = this;
-            getHomeTimeline(
-                page,
-                data => {
-                    console.log(vue.list);
-                    vue.loading = false;
-                    vue.list = [...vue.list, ...data.statuses]
-                },
-                err => {
-                    console.log(err);
-                }
-            )
-        },
-        loadMore() {
-            let vue = this
-            this.loading = true
-            setTimeout(() => {
-                this.page++
-                homeTimeline(this.page)
-            }, 500)
-        },
-        formatTime(time) {
-            return DateUtils.format(time);
-        },
-        formatContent(content) {
-            return StringUtils.formatContent(content)
+        showHomePage() {
+            this.$router.push({ name: 'home' })
+            this.currentPage = 'home'
         },
         tabScroll() {
             console.log(window.scrollY)
@@ -105,43 +64,6 @@ export default {
 </script>
 
 <style lang="css">
-.main.list-padding {
-    padding-top: 3.5rem;
-}
-
-.user-header {
-    width: 100%;
-    height: 5rem;
-    background: #ffffff;
-    top: 0px;
-    padding: 1rem;
-    display: flex;
-    flex-flow: row;
-}
-
-.switch-tab {
-    width: 100%;
-    height: 3.5rem;
-    background: #ffffff;
-    display: flex;
-    flex-flow: row;
-    text-align: center;
-    line-height: 3.5rem;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #999999;
-    border-bottom: 1px solid rgba(0, 0, 0, .05);
-}
-
-.switch-tab.tab-fixed {
-    position: fixed;
-    top: 0rem;
-}
-
-.switch-tab .tab-tag {
-    flex: 1;
-}
-
 .user-header .header-avatar {
     width: 3rem;
     height: 3rem;
@@ -159,70 +81,45 @@ export default {
     padding-left: 1.2rem;
 }
 
-a {
-    color: #007AFF;
+.main.list-padding {
+    padding-top: 4rem;
 }
 
-.list {
-    flex: 1;
-    background-color: #fff;
-    border-radius: 2px;
-    padding: 1rem;
-    margin-bottom: .8rem;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
-}
-
-.list .list-header {
+.user-header {
     width: 100%;
-    height: 100%;
+    height: 5rem;
+    background: #ffffff;
+    top: 0px;
+    padding: 1rem;
     display: flex;
     flex-flow: row;
 }
 
-.list .avatar {
-    width: 3.5rem;
-    height: 3.5rem;
-    border-radius: 50%;
-    border: 1px solid rgba(0, 0, 0, .05);
-}
-
-.list .user-info {
-    margin-left: 1rem;
+.switch-tab {
+    width: 100%;
+    height: 4rem;
+    background: #ffffff;
     display: flex;
-    flex-flow: column;
-    flex: 1;
-}
-
-.list .user-time {
-    font-size: 1rem;
-    color: #A4A8AC;
-    height: 100%;
-    display: table-cell
-}
-
-.list .user-info .user-name {
-    margin: 0;
-    flex: 1;
+    flex-flow: row;
+    text-align: center;
+    line-height:  4rem;
     font-size: 1.5rem;
+    font-weight: 600;
+    color: #999999;
+    border-bottom: 1px solid rgba(0, 0, 0, .05);
 }
 
-.list .user-info .user-source {
-    margin: 0;
+.switch-tab.tab-fixed {
+    position: fixed;
+    top: 0rem;
+}
+
+.switch-tab .tab-tag {
     flex: 1;
-    font-size: 1rem;
-    color: #A4A8AC
 }
 
-.list .list-content {
-    margin-top: .7rem;
-}
-
-.list .list-content .content-text {
-    font-size: 1.3rem;
-    line-height: 1rem;
-}
-
-.list .list-content .content-at {
+.switch-tab .tab-tag.tab-select {
     color: #007AFF;
+    border-bottom: 2px solid #007AFF;
 }
 </style>

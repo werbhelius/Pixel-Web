@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import login from '../components/login/login'
-import main from '../components/pixel/main'
+import Main from '../components/pixel/Main'
+import Home from '../components/pixel/Home'
 import splash from '../components/splash'
 import store from '../store/'
 
@@ -22,10 +23,18 @@ const router = new Router({
     {
       path: '/main',
       name: 'main',
-      component: main,
+      component: Main,
       meta: {
         requiresAuth: true
-      }
+      },
+      children: [{
+        path: 'home',
+        name: 'home',
+        component: Home,
+        meta: {
+          requiresAuth: true
+        }
+      }]
     },
     {
       path: '*',
