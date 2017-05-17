@@ -5,7 +5,7 @@ const key_config = {
 }
 
 const host_config = {
-    host: 'http://192.168.1.104:3000',
+    host: 'http://192.168.74.7:3000',
     oauth: 'https://open.weibo.cn/oauth2/authorize',
 }
 

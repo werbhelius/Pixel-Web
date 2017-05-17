@@ -21,10 +21,7 @@ const mutations = {
     //login and save token
     [LOGIN](state, token) {
         //save in state
-        state.token.access_token = token.access_token
-        state.token.expires_in = token.expires_in
-        state.token.remind_in = token.remind_in
-        state.token.uid = token.uid
+        state.token = token
         state.login = true
         state.logout = false
         //save in localStorage
