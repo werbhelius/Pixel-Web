@@ -13,10 +13,6 @@ const state = {
     logout: true
 }
 
-// const getters = {
-//     access_token: state => state.token
-// }
-
 const mutations = {
     //login and save token
     [LOGIN](state, token) {

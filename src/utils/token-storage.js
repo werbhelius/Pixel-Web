@@ -4,7 +4,7 @@ export const saveToken = (token) => {
   const localStorage = window.localStorage
   try {
     localStorage.setItem('token', JSON.stringify(token))
-    logger('localStorage-save-token', localStorage.getItem('token'))
+    logger('localStorage-save-token', 'token save in localStorage succeed')
   } catch (error) {
     logger('localStorage-save-token', error)
   }

@@ -2,6 +2,8 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import PixelContent from './views/Content/index'
+import PixelSpinner from './views/Spinner/index'
 import router from './router/router'
 import store from './store/'
 import VueMaterial from 'vue-material'
@@ -11,6 +13,8 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 
 Vue.use(VueMaterial)
+Vue.use(PixelContent)
+Vue.use(PixelSpinner)
 
 new Vue({
   el: '#app',

@@ -25,7 +25,7 @@ export const getUserInfo = (userId, userName, okCallback, errorCallback) => {
 
     axios(config)
         .then(function (response) {
-            logger("oauthPost-ok", response)
+            logger("oauthPost-ok", 'getUserInfo response succeed')
             okCallback(response.data)
         })
         .catch(function (error) {

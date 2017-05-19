@@ -26,7 +26,7 @@ export const getHomeTimeline = (page, okCallback, errorCallback) => {
 
     axios(config)
         .then(function (response) {
-            logger("oauthPost-ok", response)
+            logger("oauthPost-ok", 'getHomeTimeline response succeed')
             okCallback(response.data)
         })
         .catch(function (error) {

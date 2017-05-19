@@ -4,7 +4,7 @@ export const saveUserInfo= (userInfo) => {
   const localStorage = window.localStorage
   try {
     localStorage.setItem('userInfo', JSON.stringify(userInfo))
-    logger('localStorage-save-userInfo', localStorage.getItem('userInfo'))
+    logger('localStorage-save-userInfo', 'userInfo save in localStorage succeed')
   } catch (error) {
     logger('localStorage-save-userInfo', error)
   }

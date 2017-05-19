@@ -4,6 +4,7 @@ import {
 
 import { saveUserInfo, clearUserInfo, getUser } from '../../utils/user-storage'
 import * as api from '../../api/impl/userInfo'
+import { logger } from '../../utils/logger'
 
 const state = {
     userInfo: {}
@@ -14,9 +15,9 @@ const mutations = {
     [USERINFO](state, userInfo) {
         //save in state
         state.userInfo = userInfo   
+        logger('userinfo', 'save store succeed !')
         //save in localStorage
         saveUserInfo(userInfo)
-        console.log(userInfo);
     },
 
 }

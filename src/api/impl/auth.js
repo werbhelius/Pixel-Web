@@ -23,7 +23,7 @@ export const oauthPost = (code, okCallback, errorCallback) => {
 
     axios(config)
         .then(function (response) {
-            logger("oauthPost-ok", response)
+            logger("oauthPost-ok", 'oauthPost response succeed')
             okCallback(response)
         })
         .catch(function (error) {
