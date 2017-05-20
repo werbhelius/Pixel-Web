@@ -11,7 +11,6 @@
  
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import { getHomeTimeline } from '../../api/impl/home-timeline'
 export default {
     name: "home",
     data() {
@@ -29,8 +28,9 @@ export default {
     },
     watch: {
         refresh: function (val) {
-            if (val) {
+            if (val == true) {
                 this.list = []
+                this.page = 1
             }
         },
         statuses: function (val, oldVal) {
@@ -49,15 +49,11 @@ export default {
         }, 1500)
     },
     mounted() {
-        let vue = this
-        window.addEventListener('scroll', function () {
-            var a = document.documentElement.scrollTop == 0 ? document.body.clientHeight : document.documentElement.clientHeight;
-            var b = document.documentElement.scrollTop == 0 ? document.body.scrollTop : document.documentElement.scrollTop;
-            var c = document.documentElement.scrollTop == 0 ? document.body.scrollHeight : document.documentElement.scrollHeight;
-            if (a + b == c) {
-                vue.loadMore();
-            }
-        })
+        window.addEventListener('scroll', this.scrollBar)
+    },
+    beforeRouteLeave(to, from, next) {
+        window.removeEventListener('scroll', this.scrollBar)
+        next()
     },
     methods: {
         ...mapActions([
@@ -73,6 +69,15 @@ export default {
                 this.page++
                 vue.homeTimeline(this.page)
             }, 1500)
+        },
+        scrollBar() {
+            var a = document.documentElement.scrollTop == 0 ? document.body.clientHeight : document.documentElement.clientHeight;
+            var b = document.documentElement.scrollTop == 0 ? document.body.scrollTop : document.documentElement.scrollTop;
+            var c = document.documentElement.scrollTop == 0 ? document.body.scrollHeight : document.documentElement.scrollHeight;
+
+            if (a + b == c) {
+                this.loadMore();
+            }
         }
     }
 

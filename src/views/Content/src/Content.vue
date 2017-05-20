@@ -13,7 +13,7 @@
             <div  class="content-img">
                 <ul  class="content-img-ul clear-fix">
                     <li v-for="y in x.pic_urls" class="img-li-default" :class= "imgClass(x.pic_urls.length)"  >
-                        <div class="img-div" :style="{backgroundImage:'url(' + formatMidImg(y.thumbnail_pic) + ')'}"></div>
+                        <div class="img-div" v-on:click="imageZoom(y.thumbnail_pic)" :style="{backgroundImage:'url(' + formatThumbImg(y.thumbnail_pic) + ')'}"></div>
                     </li>
                 </ul>
             </div>
@@ -23,7 +23,8 @@
                 <div  class="content-img" v-if="x.retweeted_status.pic_urls">
                     <ul  class="content-img-ul clear-fix">
                         <li v-for="z in x.retweeted_status.pic_urls" class="img-li-default" :class= "imgClass(x.retweeted_status.pic_urls.length)"  >
-                            <div class="img-div" :style="{backgroundImage:'url(' + formatMidImg(z.thumbnail_pic) + ')'}"></div>
+                            <div class="img-div" :style="{backgroundImage:'url(' + formatThumbImg(z.thumbnail_pic) + ')'}"
+                                v-on:click="imageZoom(z.thumbnail_pic)"></div>
                         </li>
                     </ul>
                 </div>
@@ -43,12 +44,14 @@
                 <span class="tag-style">{{formatNum(x.attitudes_count)}}</span>
             </div>      
         </div>
+        <!--<image-zoom></image-zoom>-->
     </div>
 </template>
  
 <script>
 import * as DateUtils from '../../../utils/date-utils'
 import * as StringUtils from '../../../utils/string-utils'
+import { mapActions } from 'vuex'
 export default {
     name: "pixel-content",
     props: [
@@ -59,6 +62,9 @@ export default {
         };
     },
     methods: {
+        ...mapActions ([
+            'setImageZoom'
+        ]),
         formatTime(time) {
             return DateUtils.format(time);
         },
@@ -73,11 +79,18 @@ export default {
                 return false
             }
         },
+        formatThumbImg(img) {
+            return StringUtils.formatImgThumb(img)
+        },
         formatMidImg(img) {
             return StringUtils.formatImgMiddle(img)
         },
         formatNum(num) {
             return StringUtils.formatNum(num)
+        },
+        imageZoom(url) {
+            this.setImageZoom(this.formatMidImg(url))
+            this.$router.push({ name: 'imageZoom' });
         },
         imgClass(size) {
             let clazz = ''
@@ -218,6 +231,7 @@ a {
     width: 100%;
     padding-bottom: 100%;
     background-position: center;
+    background-repeat: no-repeat;
 }
 
 .content .list-content .content-re-content {

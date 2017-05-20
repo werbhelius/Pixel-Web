@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import PixelContent from './views/Content/index'
 import PixelSpinner from './views/Spinner/index'
+import ImageZoom from './views/ImageZoom/index'
 import router from './router/router'
 import store from './store/'
 import VueMaterial from 'vue-material'
@@ -15,6 +16,7 @@ Vue.config.productionTip = false
 Vue.use(VueMaterial)
 Vue.use(PixelContent)
 Vue.use(PixelSpinner)
+// Vue.use(ImageZoom)
 
 new Vue({
   el: '#app',

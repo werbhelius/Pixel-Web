@@ -146,10 +146,6 @@ export default {
 </script>
  
 <style lang="css">
-@font-face {
-  font-family: 'Anurati-Regular';
-  src: url('../assets/font/Anurati-Regular.svg#svgFontName') format('svg')/* Legacy IOS */
-}
 
 #particles-js {
   background-size: cover;

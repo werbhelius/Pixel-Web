@@ -13,7 +13,7 @@
             <span class="tab-tag" :class="currentPage == 'message'?'tab-select':''">消息</span>
         </nav>
         <div id="content">
-            <router-view></router-view>
+                <router-view></router-view>
         </div>
     </div>
 </template>
@@ -59,9 +59,6 @@ export default {
         showHomePage() {
             this.$router.push({ name: 'home' })
             this.currentPage = 'home'
-        },
-        tabScroll() {
-            console.log(window.scrollY)
         },
         refresh() {
             this.getHomeTimeline(1);

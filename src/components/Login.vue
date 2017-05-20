@@ -10,8 +10,8 @@
 
 <script>
 
-import { HOST_CONCIG, KEY_CONFIG } from '../../api/config/api-config'
-import { getUrlKey } from '../../utils/string-utils'
+import { HOST_CONCIG, KEY_CONFIG } from '../api/config/api-config'
+import { getUrlKey } from '../utils/string-utils'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
