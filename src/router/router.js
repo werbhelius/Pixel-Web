@@ -4,7 +4,6 @@ import Login from '../components/Login'
 import Main from '../components/Main'
 import Home from '../components/Home'
 import Splash from '../components/Splash'
-import ImageZoom from '../components/ImageZoom'
 import store from '../store/'
 
 Vue.use(Router)
@@ -20,14 +19,6 @@ const router = new Router({
         {
             path: '/splash',
             component: Splash
-        },
-        {
-            path: '/imageZoom',
-            name: 'imageZoom',
-            component: ImageZoom,
-            meta: {
-                requiresAuth: true
-            }
         },
         {
             path: '/main',

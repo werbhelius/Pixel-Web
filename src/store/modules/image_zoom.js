@@ -4,7 +4,8 @@ import {
 
 
 const state = {
-    image_url: ''
+    image_url: '',
+    show: false
 }
 
 const mutations = {
@@ -12,6 +13,11 @@ const mutations = {
     [IMAGE_ZOOM](state, data) {
         //save in state
         state.image_url = data
+        if (data) {
+            state.show = true
+        } else {
+            state.show = false
+        }
     }
 
 }
@@ -21,6 +27,7 @@ const actions = {
     setImageZoom: ({ commit }, url) => {
         commit(IMAGE_ZOOM, url)
     }
+
 }
 
 export default {

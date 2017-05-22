@@ -16,7 +16,7 @@ Vue.config.productionTip = false
 Vue.use(VueMaterial)
 Vue.use(PixelContent)
 Vue.use(PixelSpinner)
-// Vue.use(ImageZoom)
+Vue.use(ImageZoom)
 
 new Vue({
   el: '#app',

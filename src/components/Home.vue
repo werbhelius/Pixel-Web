@@ -23,7 +23,8 @@ export default {
     computed: {
         ...mapGetters({
             statuses: 'home_timeline',
-            refresh: 'home_timeline_refresh'
+            refresh: 'home_timeline_refresh',
+            showImage: 'image_zoom_show'
         })
     },
     watch: {
@@ -71,11 +72,12 @@ export default {
             }, 1500)
         },
         scrollBar() {
+        
             var a = document.documentElement.scrollTop == 0 ? document.body.clientHeight : document.documentElement.clientHeight;
             var b = document.documentElement.scrollTop == 0 ? document.body.scrollTop : document.documentElement.scrollTop;
             var c = document.documentElement.scrollTop == 0 ? document.body.scrollHeight : document.documentElement.scrollHeight;
 
-            if (a + b == c) {
+            if (a + b == c && !this.showImage) {
                 this.loadMore();
             }
         }
@@ -85,6 +87,7 @@ export default {
 </script>
  
 <style lang="css">
+
 .list {
     flex: 1;
     background-color: #fff;

@@ -1,23 +1,40 @@
 <template>
-  <div id="app">
-    <keep-alive>
-        <router-view></router-view>
-    </keep-alive>
-  </div>
+    <div id="app">
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>
+        <transition name="fade">
+            <image-zoom class="click-img" v-if="showImage"></image-zoom>
+        </transition>
+    </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  name: 'app'
+    name: 'app',
+    computed: {
+        ...mapGetters({
+            showImage: 'image_zoom_show'
+        })
+    }
 }
 </script>
 
 <style>
 #app {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #f4f5f5;
-  height: 100%;
-  width: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #f4f5f5;
+    height: 100%;
+    width: 100%;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0
 }
 </style>
