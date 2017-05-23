@@ -1,10 +1,10 @@
 <template lang="html">
-    <div class="home">
+    <div class="home" ref="home">
         <div class="list"  v-for="x in list">
             <pixel-content :x="x"></pixel-content>
         </div>
         <div class="refresh-footer" v-if="loading">
-            <pixel-spinner :size="'45px'" :color="'#007AFF'"></pixel-spinner>
+            <pixel-spinner :size="'45px'" :color="'#007AFF'" ></pixel-spinner>
         </div>
     </div>
 </template>
@@ -50,7 +50,10 @@ export default {
         }, 1500)
     },
     mounted() {
-        window.addEventListener('scroll', this.scrollBar)
+        console.log(window.scrollY);
+        // box.addEventListener('scroll', function() {
+        //     console.log('9999');
+        // })
     },
     beforeRouteLeave(to, from, next) {
         window.removeEventListener('scroll', this.scrollBar)
@@ -72,11 +75,10 @@ export default {
             }, 1500)
         },
         scrollBar() {
-        
             var a = document.documentElement.scrollTop == 0 ? document.body.clientHeight : document.documentElement.clientHeight;
             var b = document.documentElement.scrollTop == 0 ? document.body.scrollTop : document.documentElement.scrollTop;
             var c = document.documentElement.scrollTop == 0 ? document.body.scrollHeight : document.documentElement.scrollHeight;
-
+            console.log('1212');
             if (a + b == c && !this.showImage) {
                 this.loadMore();
             }

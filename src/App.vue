@@ -1,10 +1,10 @@
 <template>
     <div id="app">
         <keep-alive>
-            <router-view></router-view>
+            <router-view class="app-view"></router-view>
         </keep-alive>
         <transition name="fade">
-            <image-zoom class="click-img" v-if="showImage"></image-zoom>
+            <image-zoom class="click-img" v-if="showImage" ></image-zoom>
         </transition>
     </div>
 </template>
@@ -31,10 +31,21 @@ export default {
     width: 100%;
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s
+.app-view {
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    /*position: absolute;
+    transition: transform 0.3s ease;*/
 }
-.fade-enter, .fade-leave-active {
-  opacity: 0
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity .5s
+}
+
+.fade-enter,
+.fade-leave-active {
+    opacity: 0
 }
 </style>

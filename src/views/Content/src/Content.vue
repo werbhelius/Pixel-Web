@@ -62,7 +62,7 @@ export default {
         };
     },
     methods: {
-        ...mapActions ([
+        ...mapActions([
             'setImageZoom'
         ]),
         formatTime(time) {
@@ -90,6 +90,7 @@ export default {
         },
         imageZoom(url) {
             this.setImageZoom(this.formatMidImg(url))
+            // this.$router.push({ name: 'imageZoom' })
         },
         imgClass(size) {
             let clazz = ''
