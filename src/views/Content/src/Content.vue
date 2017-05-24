@@ -90,7 +90,7 @@ export default {
         },
         imageZoom(url) {
             this.setImageZoom(this.formatMidImg(url))
-            // this.$router.push({ name: 'imageZoom' })
+            this.$router.push({ name: 'imageZoom' })
         },
         imgClass(size) {
             let clazz = ''

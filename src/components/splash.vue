@@ -5,15 +5,13 @@
  
 <script>
 import { mapActions, mapGetters } from 'vuex'
-// import particles from 'particles.js'
-
+require('particles.js')
 export default {
   name: "splash",
   computed: {
 
   },
   mounted() {
-    require('particles.js')
     this.$nextTick(() => {
       this.initParticleJS()
     })

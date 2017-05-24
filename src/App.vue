@@ -1,10 +1,9 @@
 <template>
     <div id="app">
-        <keep-alive>
-            <router-view class="app-view"></router-view>
-        </keep-alive>
         <transition name="fade">
-            <image-zoom class="click-img" v-if="showImage" ></image-zoom>
+            <keep-alive>
+                <router-view class="app-view"></router-view>
+            </keep-alive>
         </transition>
     </div>
 </template>
@@ -13,12 +12,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
-    name: 'app',
-    computed: {
-        ...mapGetters({
-            showImage: 'image_zoom_show'
-        })
-    }
+    name: 'app'
 }
 </script>
 
@@ -31,13 +25,7 @@ export default {
     width: 100%;
 }
 
-.app-view {
-    width: 100vw;
-    height: 100vh;
-    overflow: auto;
-    /*position: absolute;
-    transition: transform 0.3s ease;*/
-}
+.app-view {}
 
 .fade-enter-active,
 .fade-leave-active {
