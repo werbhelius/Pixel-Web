@@ -1,9 +1,9 @@
 import {
-    HOME_TIMELINE,
+    PUBLIC_TIMELINE,
     REFRESH
 } from '../mutations-type'
 
-import * as api from '../../api/impl/home-timeline'
+import * as api from '../../api/impl/public-timeline'
 import { logger } from '../../utils/logger'
 
 const state = {
@@ -13,23 +13,22 @@ const state = {
 
 const mutations = {
 
-    [HOME_TIMELINE](state, data) {
+    [PUBLIC_TIMELINE](state, data) {
         //save in state
         state.statuses = data
-        logger('home-timeline', 'save store succeed !')
+        logger('public-timeline', 'save store succeed !')
     },
 
     [REFRESH](state, refresh) {
         state.refresh = refresh
-        logger('home-timeline-refresh', refresh)
+        logger('public-timeline-refresh', refresh)
     }
-
 
 }
 
 const actions = {
 
-    getHomeTimeline: ({ commit }, page) => {
+    getPublicTimeline: ({ commit }, page) => {
 
         if (page == 1){
             commit(REFRESH, true)
@@ -37,10 +36,10 @@ const actions = {
             commit(REFRESH, false)
         }
 
-        api.getHomeTimeline(
+        api.getPublicTimeline(
             page,
             response => {
-                commit(HOME_TIMELINE, response.statuses)
+                commit(PUBLIC_TIMELINE, response.statuses)
                 commit(REFRESH, false)
             },
             err => {

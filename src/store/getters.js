@@ -2,6 +2,10 @@ export const login = state => state.auth.login
 export const token = state => state.auth.token
 export const userInfo = state => state.userInfo.userInfo
 export const home_timeline = state => state.home_timeline.statuses
+export const public_timeline = state => state.public_timeline.statuses
+export const my_content = state => state.my_content.statuses
 export const home_timeline_refresh = state => state.home_timeline.refresh
+export const public_timeline_refresh = state => state.public_timeline.refresh
+export const my_content_refresh = state => state.my_content.refresh
 export const image_zoom_url = state => state.image_zoom.image_url
 export const image_zoom_show = state => state.image_zoom.show

@@ -1,0 +1,104 @@
+<template lang="html">
+    <div class="home" id="home">
+        <div class="list"  v-for="x in list">
+            <pixel-content :x="x"></pixel-content>
+        </div>
+        <div class="refresh-footer" v-if="loading">
+            <pixel-spinner :size="'45px'" :color="'#007AFF'"></pixel-spinner>
+        </div>
+    </div>
+</template>
+ 
+<script>
+import { mapActions, mapGetters } from 'vuex'
+export default {
+    name: "home",
+    data() {
+        return {
+            list: [],
+            loading: true,
+            page: 1
+        };
+    },
+    computed: {
+        ...mapGetters({
+            statuses: 'my_content',
+            refresh: 'my_content_refresh',
+            showImage: 'image_zoom_show'
+        })
+    },
+    watch: {
+        refresh: function (val) {
+            if (val == true) {
+                this.list = []
+                this.page = 1
+            }
+        },
+        statuses: function (val, oldVal) {
+            if (val) {
+                if (this.page == 1) {
+                    this.list = val;
+                } else {
+                    this.list = [...this.list, ...val]
+                }
+            }
+        }
+    },
+    created() {
+        setTimeout(() => {
+            this.myContent(this.page)
+        }, 1500)
+    },
+    mounted() {
+        
+    },
+    activated() {
+		window.addEventListener('scroll', this.scrollBar)
+	},
+	deactivated() {
+		 window.removeEventListener('scroll', this.scrollBar)
+	},
+    methods: {
+        ...mapActions([
+            'getMyContent'
+        ]),
+        myContent(page) {
+            this.getMyContent(page)
+        },
+        loadMore() {
+            let vue = this
+            this.loading = true
+            setTimeout(() => {
+                this.page++
+                vue.myContent(this.page)
+            }, 1500)
+        },
+        scrollBar() {
+            var a = document.documentElement.scrollTop == 0 ? document.body.clientHeight : document.documentElement.clientHeight;
+            var b = document.documentElement.scrollTop == 0 ? document.body.scrollTop : document.documentElement.scrollTop;
+            var c = document.documentElement.scrollTop == 0 ? document.body.scrollHeight : document.documentElement.scrollHeight;
+            if (a + b == c && !this.showImage) {
+                this.loadMore();
+            }
+        }
+    }
+
+}
+</script>
+ 
+<style lang="css">
+.list {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 2px;
+    padding: 1rem;
+    margin-bottom: .8rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+}
+
+.refresh-footer {
+    margin-bottom: .8rem;
+    margin-top: .8rem;
+    text-align: center;
+}
+</style>

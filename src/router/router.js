@@ -3,7 +3,10 @@ import Router from 'vue-router'
 import Login from '../components/Login'
 import Main from '../components/Main'
 import Home from '../components/Home'
+import Explore from '../components/Explore'
 import Splash from '../components/Splash'
+import Profile from '../components/Profile'
+import MyContent from '../components/MyContent'
 import ImageZoom from '../components/ImageZoom'
 import store from '../store/'
 
@@ -27,6 +30,22 @@ const router = new Router({
             component: ImageZoom
         },
         {
+            path: '/profile',
+            name: 'profile',
+            component: Profile,
+            meta: {
+                requiresAuth: true
+            },
+            children: [{
+                path: 'myContent',
+                name: 'myContent',
+                component: MyContent,
+                meta: {
+                    requiresAuth: true
+                }
+            }]
+        },
+        {
             path: '/main',
             name: 'main',
             component: Main,
@@ -37,6 +56,14 @@ const router = new Router({
                 path: 'home',
                 name: 'home',
                 component: Home,
+                meta: {
+                    requiresAuth: true
+                }
+            },
+            {
+                path: 'explore',
+                name: 'explore',
+                component: Explore,
                 meta: {
                     requiresAuth: true
                 }
