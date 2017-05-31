@@ -1,6 +1,6 @@
 import {
     PUBLIC_TIMELINE,
-    REFRESH
+    PUBLIC_REFRESH
 } from '../mutations-type'
 
 import * as api from '../../api/impl/public-timeline'
@@ -19,7 +19,7 @@ const mutations = {
         logger('public-timeline', 'save store succeed !')
     },
 
-    [REFRESH](state, refresh) {
+    [PUBLIC_REFRESH](state, refresh) {
         state.refresh = refresh
         logger('public-timeline-refresh', refresh)
     }
@@ -30,17 +30,19 @@ const actions = {
 
     getPublicTimeline: ({ commit }, page) => {
 
+         console.log('getPublicTimeline');
+
         if (page == 1){
-            commit(REFRESH, true)
+            commit(PUBLIC_REFRESH, true)
         } else{
-            commit(REFRESH, false)
+            commit(PUBLIC_REFRESH, false)
         }
 
         api.getPublicTimeline(
             page,
             response => {
                 commit(PUBLIC_TIMELINE, response.statuses)
-                commit(REFRESH, false)
+                commit(PUBLIC_REFRESH, false)
             },
             err => {
                 console.log(err);

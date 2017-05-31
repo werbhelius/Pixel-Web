@@ -4,7 +4,7 @@
             <svg viewBox="0 0 46 72" style="display: inline-block; fill: currentcolor; height: 100%; width: 100%; position: relative; user-select: none; vertical-align: text-bottom;"><g><path d="M27.243 36l14.879-14.879a2.998 2.998 0 0 0 0-4.242 2.998 2.998 0 0 0-4.242 0L23 31.758 8.122 16.879a2.998 2.998 0 0 0-4.242 0 2.998 2.998 0 0 0 0 4.242L18.758 36 3.879 50.879A2.998 2.998 0 0 0 6.001 56a2.99 2.99 0 0 0 2.121-.879L23 40.242l14.879 14.879A2.991 2.991 0 0 0 40 56a2.998 2.998 0 0 0 2.121-5.121L27.243 36z"></path></g></svg>
         </div>
         <div class="profile-header" :style="{backgroundImage:'url(' + userInfo.cover_image_phone + ')'}">
-            <img class="header-avatar" v-on:click="goProfile" v-if="userInfo" :src="userInfo.avatar_large">
+            <img class="header-avatar"  v-if="userInfo" :src="userInfo.avatar_large">
             <span class="header-name">{{userInfo.screen_name}}</span>
             <span class="header-bio">{{userInfo.description}}</span>
             <div class="header-info">
@@ -34,18 +34,29 @@ export default {
     },
     computed: {
         ...mapGetters({
-            userInfo: 'userInfo'
+            token: 'token',
+            userInfo: 'userInfo',
         })
     },
+    created() {
+
+    },
     mounted() {
-        this.showMyContent() 
+
+    },
+    activated() {
+        this.getUserInfo(this.token.uid)
+        this.showMyContent()
     },
     methods: {
+        ...mapActions([
+            'getUserInfo'
+        ]),
         showMyContent() {
             this.$router.push({ name: 'myContent' })
         },
         goBack() {
-            this.$router.go(-1)
+            this.$router.go(-2)
         },
         formatNum(num) {
             return StringUtils.formatNum(num)
@@ -124,7 +135,5 @@ export default {
     z-index: 150;
 }
 
-.content {
-
-}
+.content {}
 </style>

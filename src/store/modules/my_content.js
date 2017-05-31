@@ -1,6 +1,6 @@
 import {
     MY_CONTENT,
-    REFRESH
+    PROFILE_REFRESH
 } from '../mutations-type'
 
 import * as api from '../../api/impl/my-content'
@@ -19,7 +19,7 @@ const mutations = {
         logger('my-content', 'save store succeed !')
     },
 
-    [REFRESH](state, refresh) {
+    [PROFILE_REFRESH](state, refresh) {
         state.refresh = refresh
         logger('my-content', refresh)
     }
@@ -31,17 +31,19 @@ const actions = {
 
     getMyContent: ({ commit }, page) => {
 
+        console.log('getMyContent');
+
         if (page == 1){
-            commit(REFRESH, true)
+            commit(PROFILE_REFRESH, true)
         } else{
-            commit(REFRESH, false)
+            commit(PROFILE_REFRESH, false)
         }
 
         api.getMyContent(
             page,
             response => {
                 commit(MY_CONTENT, response.statuses)
-                commit(REFRESH, false)
+                commit(PROFILE_REFRESH, false)
             },
             err => {
                 console.log(err);

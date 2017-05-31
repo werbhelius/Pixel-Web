@@ -1,9 +1,9 @@
 <template>
     <div id="app">
-         <transition name="fade">
-        <keep-alive>
-            <router-view class="app-view" ></router-view>
-        </keep-alive>
+        <transition name="fade">
+            <keep-alive>
+                <router-view class="app-view"></router-view>
+            </keep-alive>
         </transition>
     </div>
 </template>
@@ -25,9 +25,7 @@ export default {
     width: 100%;
 }
 
-.app-view {
-   
-}
+.app-view {}
 
 .fade-enter-active,
 .fade-leave-active {

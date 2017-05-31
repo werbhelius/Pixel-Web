@@ -1,6 +1,6 @@
 import {
     HOME_TIMELINE,
-    REFRESH
+    HOME_REFRESH
 } from '../mutations-type'
 
 import * as api from '../../api/impl/home-timeline'
@@ -19,7 +19,7 @@ const mutations = {
         logger('home-timeline', 'save store succeed !')
     },
 
-    [REFRESH](state, refresh) {
+    [HOME_REFRESH](state, refresh) {
         state.refresh = refresh
         logger('home-timeline-refresh', refresh)
     }
@@ -31,17 +31,19 @@ const actions = {
 
     getHomeTimeline: ({ commit }, page) => {
 
+        console.log('getHomeTimeline');
+
         if (page == 1){
-            commit(REFRESH, true)
+            commit(HOME_REFRESH, true)
         } else{
-            commit(REFRESH, false)
+            commit(HOME_REFRESH, false)
         }
 
         api.getHomeTimeline(
             page,
             response => {
                 commit(HOME_TIMELINE, response.statuses)
-                commit(REFRESH, false)
+                commit(HOME_REFRESH, false)
             },
             err => {
                 console.log(err);
