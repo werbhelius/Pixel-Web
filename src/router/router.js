@@ -7,6 +7,8 @@ import Explore from '../components/Explore'
 import Splash from '../components/Splash'
 import Profile from '../components/Profile'
 import MyContent from '../components/MyContent'
+import DetailContent from '../components/DetailContent'
+import Post from '../components/SendPost'
 import ImageZoom from '../components/ImageZoom'
 import store from '../store/'
 
@@ -28,6 +30,22 @@ const router = new Router({
             path: '/imageZoom',
             name: 'imageZoom',
             component: ImageZoom
+        },
+        {
+            path: 'detail-content',
+            name: 'detail-content',
+            component: DetailContent,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: 'post',
+            name: 'post',
+            component: Post,
+            meta: {
+                requiresAuth: true
+            }
         },
         {
             path: '/profile',
@@ -78,14 +96,19 @@ const router = new Router({
 
 let indexScrollTop = 0
 let dom = null
+let content = null
+
+let savePosition = function () {
+    dom = document.querySelector('.app-view')
+    indexScrollTop = dom.scrollTop
+}
 
 router.beforeEach((to, from, next) => {
-
     if (to.meta.requiresAuth) {
         store.dispatch('getToken')
         const login = store.getters.login
         if (login) {
-            next();
+            next()
         }
         else {
             next({
@@ -93,19 +116,15 @@ router.beforeEach((to, from, next) => {
             })
         }
     } else {
-        next();
+        next()
     }
 })
 
 router.afterEach((to, from, next) => {
-    if (to.path == '/imageZoom') {
-        dom.scrollTop = 0;
-    } else {
-        Vue.nextTick(() => {
-            dom = document.querySelector('.app-view')
-            dom.scrollTop = 0;
-        });
-    }
+    Vue.nextTick(() => {
+        dom = document.querySelector('.app-view')
+        dom.scrollTop = 0
+    });
 })
 
 export default router

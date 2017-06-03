@@ -9,3 +9,6 @@ export const public_timeline_refresh = state => state.public_timeline.refresh
 export const my_content_refresh = state => state.my_content.refresh
 export const image_zoom_url = state => state.image_zoom.image_url
 export const image_zoom_show = state => state.image_zoom.show
+export const detail_content = state => state.detail_content.content
+export const comments = state => state.content_comments.comments
+export const comments_refresh = state => state.content_comments.refresh

@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="content">
+    <div class="content" v-on:click="goDetailContent">
         <div class="list-header">
             <img class="avatar" v-if="x.user" :src="x.user.avatar_large">
             <div class="user-info">
@@ -13,7 +13,7 @@
             <div  class="content-img">
                 <ul  class="content-img-ul clear-fix">
                     <li v-for="y in x.pic_urls" class="img-li-default" :class= "imgClass(x.pic_urls.length)"  >
-                        <div class="img-div" v-on:click="imageZoom(y.thumbnail_pic)" :style="{backgroundImage:'url(' + formatThumbImg(y.thumbnail_pic) + ')'}"></div>
+                        <div class="img-div" v-on:click.stop="imageZoom(y.thumbnail_pic)" :style="{backgroundImage:'url(' + formatThumbImg(y.thumbnail_pic) + ')'}"></div>
                     </li>
                 </ul>
             </div>
@@ -24,7 +24,7 @@
                     <ul  class="content-img-ul clear-fix">
                         <li v-for="z in x.retweeted_status.pic_urls" class="img-li-default" :class= "imgClass(x.retweeted_status.pic_urls.length)"  >
                             <div class="img-div" :style="{backgroundImage:'url(' + formatThumbImg(z.thumbnail_pic) + ')'}"
-                                v-on:click="imageZoom(z.thumbnail_pic)"></div>
+                                v-on:click.stop="imageZoom(z.thumbnail_pic)"></div>
                         </li>
                     </ul>
                 </div>
@@ -44,7 +44,6 @@
                 <span class="tag-style">{{formatNum(x.attitudes_count)}}</span>
             </div>      
         </div>
-        <!--<image-zoom></image-zoom>-->
     </div>
 </template>
  
@@ -63,8 +62,13 @@ export default {
     },
     methods: {
         ...mapActions([
-            'setImageZoom'
+            'setImageZoom',
+            'setDetailContent'
         ]),
+        goDetailContent() {
+            this.setDetailContent(this.x)
+            this.$router.push({name : 'detail-content'})
+        },
         formatTime(time) {
             return DateUtils.format(time);
         },

@@ -6,6 +6,8 @@ import home_timeline from './modules/home_timeline'
 import public_timeline from './modules/public_timeline'
 import my_content from './modules/my_content'
 import image_zoom from './modules/image_zoom'
+import detail_content from './modules/detail_content'
+import content_comments from './modules/content_comments'
 import * as getters from './getters'
 
 Vue.use(Vuex)
@@ -18,6 +20,8 @@ export default new Vuex.Store({
         home_timeline,
         public_timeline,
         my_content,
-        image_zoom
+        image_zoom,
+        detail_content,
+        content_comments
     }
 })

@@ -14,7 +14,8 @@ const api_router_config = {
     home_timeline: '/statuses/home_timeline.json',
     public_timeline: '/statuses/public_timeline.json',
     my_content: '/statuses/user_timeline.json',
-    userinfo: '/users/show.json'
+    userinfo: '/users/show.json',
+    content_comments: '/comments/show.json',
 }
 
 export const HOST_CONCIG = host_config;
