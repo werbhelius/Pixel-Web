@@ -1,10 +1,10 @@
 <template lang="html">
     <div class="post">
         <div class="post-header">
-            <div class="header-close">
+            <div class="header-close" v-on:click="goBack">
                 <svg class="close-icon" viewBox="0 0 46 72" style="display: inline-block; fill: currentcolor; position: relative; user-select: none; vertical-align: text-bottom;"><g><path d="M27.243 36l14.879-14.879a2.998 2.998 0 0 0 0-4.242 2.998 2.998 0 0 0-4.242 0L23 31.758 8.122 16.879a2.998 2.998 0 0 0-4.242 0 2.998 2.998 0 0 0 0 4.242L18.758 36 3.879 50.879A2.998 2.998 0 0 0 6.001 56a2.99 2.99 0 0 0 2.121-.879L23 40.242l14.879 14.879A2.991 2.991 0 0 0 40 56a2.998 2.998 0 0 0 2.121-5.121L27.243 36z"></path></g></svg>
             </div>
-            <div class="post-send">
+            <div class="post-send" v-on:click="sendText">
                 <span class="send-text">发送</span>
             </div>
         </div>
@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="post-status">
-           <div contenteditable="true" placeholder="有什么新鲜事？" class="status-text"></div>
+           <div contenteditable="true" ref="sendText" placeholder="有什么新鲜事？" class="status-text"></div>
         </div>
         <div class="status-image">
             <div class="image-select">
@@ -33,10 +33,12 @@
  
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import * as api from '../api/impl/send_post'
 export default {
     name: "component_name",
     data() {
         return {
+            dataText: '',
             dataUrl: '',
             file: null,
             fileName: ''
@@ -48,7 +50,23 @@ export default {
         })
     },
     methods: {
-        closeImage(){
+        sendText() {
+            var self = this
+            var div = this.$refs.sendText
+            if (!div.innerHTML) return
+            self.dataText = div.innerHTML
+            api.postSendText(
+                self.dataText, 
+                response => {
+                    if(response.status == 200){
+                        self.goBack()
+                    }
+                 },
+                err => {
+                    alert('发送失败，请稍后尝试')
+                })
+        },
+        closeImage() {
             this.imgPreview(null)
         },
         imgPreview(file) {
@@ -77,6 +95,9 @@ export default {
             // 这里就可以获取到文件的名字了
             this.fileName = this.file.name
             this.imgPreview(this.file)
+        },
+        goBack(){
+            this.$router.go(-1)
         }
     }
 }
@@ -203,7 +224,7 @@ export default {
     position: relative;
 }
 
-.status-image .image-img .image-close{
+.status-image .image-img .image-close {
     color: #007AFF;
     width: 1.2rem;
     height: 1.2rem;
