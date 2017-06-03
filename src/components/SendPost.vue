@@ -40,6 +40,7 @@ export default {
         return {
             dataText: '',
             dataUrl: '',
+            pic: null,
             file: null,
             fileName: ''
         };
@@ -53,18 +54,44 @@ export default {
         sendText() {
             var self = this
             var div = this.$refs.sendText
+            // if (self.dataUrl) {
+            //     self.sendImg()
+            //     return
+            // }
             if (!div.innerHTML) return
             self.dataText = div.innerHTML
             api.postSendText(
-                self.dataText, 
+                self.dataText,
                 response => {
-                    if(response.status == 200){
+                    if (response.status == 200) {
                         self.goBack()
                     }
-                 },
+                },
                 err => {
                     alert('发送失败，请稍后尝试')
                 })
+        },
+        sendImg() {
+            var self = this
+            var div = this.$refs.sendText
+            if (!self.dataUrl) return
+            self.dataText = div.innerHTML
+            var reader = new FileReader()
+            reader.readAsBinaryString(self.file)
+            reader.onloadend = function () {
+                self.pic = this.result
+                api.postSendImg(
+                    self.dataText,
+                    self.pic,
+                    response => {
+                        if (response.status == 200) {
+                            self.goBack()
+                        }
+                    },
+                    err => {
+                        alert('发送失败，请稍后尝试')
+                    })
+            }
         },
         closeImage() {
             this.imgPreview(null)
@@ -96,7 +123,7 @@ export default {
             this.fileName = this.file.name
             this.imgPreview(this.file)
         },
-        goBack(){
+        goBack() {
             this.$router.go(-1)
         }
     }

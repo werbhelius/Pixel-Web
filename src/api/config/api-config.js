@@ -16,7 +16,8 @@ const api_router_config = {
     my_content: '/statuses/user_timeline.json',
     userinfo: '/users/show.json',
     content_comments: '/comments/show.json',
-    'send_post_text': '/statuses/update.json'
+    'send_post_text': '/statuses/update.json',
+    'send_post_image': '/statuses/upload.json'
 }
 
 export const HOST_CONCIG = host_config;
