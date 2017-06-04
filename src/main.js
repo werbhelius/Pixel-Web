@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import PixelContent from './views/Content/index'
 import PixelContentComments from './views/Comment/index'
+import PixelAtMeComment from './views/AtMeComment/index'
 import PixelSpinner from './views/Spinner/index'
 import router from './router/router'
 import store from './store/'
@@ -17,6 +18,7 @@ Vue.use(VueMaterial)
 Vue.use(PixelContent)
 Vue.use(PixelSpinner)
 Vue.use(PixelContentComments)
+Vue.use(PixelAtMeComment)
 
 new Vue({
   el: '#app',

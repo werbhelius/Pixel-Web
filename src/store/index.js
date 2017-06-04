@@ -8,6 +8,10 @@ import my_content from './modules/my_content'
 import image_zoom from './modules/image_zoom'
 import detail_content from './modules/detail_content'
 import content_comments from './modules/content_comments'
+import at_me_status from './modules/at_me_status'
+import at_me_comment from './modules/at_me_comment'
+import receive_comment from './modules/receive_comment'
+import send_comment from './modules/send_comment'
 import * as getters from './getters'
 
 Vue.use(Vuex)
@@ -22,6 +26,10 @@ export default new Vuex.Store({
         my_content,
         image_zoom,
         detail_content,
-        content_comments
+        content_comments,
+        at_me_status,
+        at_me_comment,
+        receive_comment,
+        send_comment
     }
 })

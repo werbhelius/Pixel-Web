@@ -61,6 +61,13 @@ export default {
             this.contentComments(this.page)
         }, 1500)
     },
+    activated() {
+        this.contentComments(this.page)
+    },
+    deactivated() {
+        this.list = []
+        this.page = 1
+    },
     methods: {
         ...mapActions([
             'getContentComments'

@@ -17,7 +17,11 @@ const api_router_config = {
     userinfo: '/users/show.json',
     content_comments: '/comments/show.json',
     'send_post_text': '/statuses/update.json',
-    'send_post_image': '/statuses/upload.json'
+    'send_post_image': '/statuses/upload.json',
+    'at_me_statue': '/statuses/mentions.json',
+    'at_me_comment': '/comments/mentions.json',
+    'receive_comment': '/comments/to_me.json',
+    'send_comment': '/comments/by_me.json'
 }
 
 export const HOST_CONCIG = host_config;

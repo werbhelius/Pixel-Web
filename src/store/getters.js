@@ -12,3 +12,11 @@ export const image_zoom_show = state => state.image_zoom.show
 export const detail_content = state => state.detail_content.content
 export const comments = state => state.content_comments.comments
 export const comments_refresh = state => state.content_comments.refresh
+export const at_me_status = state => state.at_me_status.statuses
+export const at_me_status_refresh = state => state.at_me_status.refresh
+export const at_me_comment = state => state.at_me_comment.comments
+export const at_me_comment_refresh = state => state.at_me_comment.refresh
+export const receive_comment = state => state.receive_comment.comments
+export const receive_comment_refresh = state => state.receive_comment.refresh
+export const send_comment = state => state.send_comment.comments
+export const send_comment_refresh = state => state.send_comment.refresh

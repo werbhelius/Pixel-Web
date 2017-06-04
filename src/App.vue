@@ -1,10 +1,10 @@
 <template>
     <div id="app">
-        <transition name="fade">
+        <!--<transition name="fade">-->
             <keep-alive>
                 <router-view  class="app-view"></router-view>
             </keep-alive>
-        </transition>
+        <!--</transition>-->
     </div>
 </template>
 

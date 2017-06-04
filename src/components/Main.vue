@@ -11,14 +11,12 @@
             <nav class="switch-tab" >
                 <span class="tab-tag" v-on:click="switchTab('home')" :class="currentPage == 'home'?'tab-select':''" >主页</span>
                 <span class="tab-tag" v-on:click="switchTab('explore')" :class="currentPage == 'explore'?'tab-select':''">探索</span>
-                <span class="tab-tag" v-on:click="switchTab('message')" :class="currentPage == 'message'?'tab-select':''">消息</span>
+                <span class="tab-tag" v-on:click="switchTab('notify')" :class="currentPage == 'notify'?'tab-select':''">消息</span>
             </nav>
             <div id="content" class="app-content">
-                <transition name="fade">
-                    <keep-alive>
-                        <router-view></router-view>
-                    </keep-alive>
-                </transition>
+                <keep-alive>
+                    <router-view></router-view>
+                </keep-alive>
             </div>
             <div class="post" v-on:click.stop="goPost">
                 <div class="post-icon">
@@ -74,6 +72,10 @@ export default {
             this.$router.push({ name: 'explore' })
             this.currentPage = 'explore'
         },
+        showNotifyPage() {
+            this.$router.push({ name: 'notify' })
+            this.currentPage = 'notify'
+        },
         refresh() {
             switch (this.currentPage) {
                 case 'home':
@@ -96,6 +98,9 @@ export default {
                 case 'explore':
                     vue.showExplorePage()
                     break;
+                case 'notify':
+                    vue.showNotifyPage()
+                    break;
                 default:
                     vue.showHomePage()
                     break;
@@ -111,20 +116,21 @@ export default {
 }
 
 .main .post {
-    width: 5rem;
-    height: 5rem;
+    width: 4.3rem;
+    height: 4.3rem;
     border-radius: 50%;
     background-color: #FF534B;
     position: fixed;
-    top: 87vh;
+    top: 84vh;
     right: 2rem;
-    box-shadow: 1px 1px 4px rgba(101,119,134,.75);
+    box-shadow: 1px 1px 4px rgba(101, 119, 134, .75);
+    z-index: 50;
 }
 
-.main .post .post-icon{
-    width: 1.5rem;
-    height: 1.5rem;
-    margin: 1.75rem;
+.main .post .post-icon {
+    width: 1.3rem;
+    height: 1.3rem;
+    margin: 1.5rem;
     color: #FFFFFF;
 }
 
@@ -171,7 +177,7 @@ export default {
     color: #5d5d5d;
 }
 
-.switch-tab {
+.main .switch-tab {
     width: 100%;
     height: 3.5rem;
     background: #f4f5f5;
@@ -188,21 +194,22 @@ export default {
     z-index: 30;
 }
 
-.switch-tab.tab-fixed {
+.main .switch-tab.tab-fixed {
     position: fixed;
     top: 0rem;
 }
 
-.switch-tab .tab-tag {
+.main .switch-tab .tab-tag {
     flex: 1;
 }
 
-.switch-tab .tab-tag.tab-select {
+.main .switch-tab .tab-tag.tab-select {
     color: #FF534B;
     border-bottom: 2px solid #FF534B;
 }
 
-.fade-enter-active,
+
+/*.fade-enter-active,
 .fade-leave-active {
     transition: opacity .5s
 }
@@ -210,5 +217,5 @@ export default {
 .fade-enter,
 .fade-leave-active {
     opacity: 0
-}
+}*/
 </style>

@@ -4,6 +4,11 @@ import Login from '../components/Login'
 import Main from '../components/Main'
 import Home from '../components/Home'
 import Explore from '../components/Explore'
+import Notify from '../components/Notify'
+import AtMeStatus from '../components/notify/AtMeStatus'
+import AtMeComment from '../components/notify/AtMeComment'
+import ReceiveComment from '../components/notify/ReceiveComment'
+import sendComment from '../components/notify/sendComment'
 import Splash from '../components/Splash'
 import Profile from '../components/Profile'
 import MyContent from '../components/MyContent'
@@ -85,6 +90,48 @@ const router = new Router({
                 meta: {
                     requiresAuth: true
                 }
+            },
+            {
+                path: 'notify',
+                name: 'notify',
+                component: Notify,
+                meta: {
+                    requiresAuth: true
+                },
+                children: [
+                    {
+                        path: 'atmestatus',
+                        name: 'atmestatus',
+                        component: AtMeStatus,
+                        meta: {
+                            requiresAuth: true
+                        }
+                    },
+                    {
+                        path: 'atmecomment',
+                        name: 'atmecomment',
+                        component: AtMeComment,
+                        meta: {
+                            requiresAuth: true
+                        }
+                    },
+                    {
+                        path: 'receivecomment',
+                        name: 'receivecomment',
+                        component: ReceiveComment,
+                        meta: {
+                            requiresAuth: true
+                        }
+                    },
+                    {
+                        path: 'sendcomment',
+                        name: 'sendcomment',
+                        component: sendComment,
+                        meta: {
+                            requiresAuth: true
+                        }
+                    }
+                ]
             }]
         },
         {
