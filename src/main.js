@@ -10,6 +10,10 @@ import router from './router/router'
 import store from './store/'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
+import vueScrollBehavior from 'vue-scroll-behavior'
+
+// Vue.use(vueScrollBehavior)
+// Vue.vueScrollBehavior(router)
 
 Vue.config.productionTip = false
 /* eslint-disable no-new */

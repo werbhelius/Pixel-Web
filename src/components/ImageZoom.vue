@@ -44,7 +44,7 @@ export default {
         ]),
         goBack() {
             this.setImageZoom(null)
-            this.$router.go(-1)
+            window.history.go(-1)
         }
     }
 }

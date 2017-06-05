@@ -16,6 +16,7 @@ import DetailContent from '../components/DetailContent'
 import Post from '../components/SendPost'
 import ImageZoom from '../components/ImageZoom'
 import store from '../store/'
+import * as scrollUtils from '../utils/scroll-position'
 
 Vue.use(Router)
 
@@ -141,16 +142,25 @@ const router = new Router({
     ]
 })
 
-let indexScrollTop = 0
-let dom = null
-let content = null
-
-let savePosition = function () {
-    dom = document.querySelector('.app-view')
-    indexScrollTop = dom.scrollTop
-}
+let routerList = []
 
 router.beforeEach((to, from, next) => {
+
+    let position = scrollUtils.getScrollTop()
+    console.log('before ' + position)
+    let currentRouterIndex = routerList.findIndex(e => {
+        return e.path === from.fullPath
+    })
+
+    if (currentRouterIndex != -1) {
+        routerList[currentRouterIndex].position = position
+    } else {
+        routerList.push({
+            path: from.fullPath,
+            position: position
+        })
+    }
+
     if (to.meta.requiresAuth) {
         store.dispatch('getToken')
         const login = store.getters.login
@@ -168,10 +178,24 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach((to, from, next) => {
-    Vue.nextTick(() => {
-        dom = document.querySelector('.app-view')
-        dom.scrollTop = 0
-    });
+
+    let savedPosition = routerList.find(e => {
+        return e.path === to.fullPath
+    })
+
+    if (typeof savedPosition !== 'undefined') {
+        Vue.nextTick(() => {
+            scrollUtils.setScrollTop(savedPosition.position)
+        })
+    } else {
+        Vue.nextTick(() => {
+            scrollUtils.setScrollTop(0)
+        })
+    }
+
+    console.log(window.pageYOffset || document.documentElement.scrollTop
+        || document.body.scrollTop)
+
 })
 
 export default router
