@@ -14,9 +14,11 @@
                 <span class="tab-tag" v-on:click="switchTab('notify')" :class="currentPage == 'notify'?'tab-select':''">消息</span>
             </nav>
             <div id="content" class="app-content">
-                <keep-alive>
-                    <router-view></router-view>
-                </keep-alive>
+                <transition name="fade">
+                    <keep-alive>
+                        <router-view></router-view>
+                    </keep-alive>
+                </transition>
             </div>
             <div class="post" v-on:click.stop="goPost">
                 <div class="post-icon">
@@ -209,13 +211,12 @@ export default {
 }
 
 
-/*.fade-enter-active,
-.fade-leave-active {
+.fade-enter-active {
     transition: opacity .5s
 }
 
 .fade-enter,
 .fade-leave-active {
     opacity: 0
-}*/
+}
 </style>

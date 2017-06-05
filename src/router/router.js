@@ -11,6 +11,8 @@ import ReceiveComment from '../components/notify/ReceiveComment'
 import sendComment from '../components/notify/sendComment'
 import Splash from '../components/Splash'
 import Profile from '../components/Profile'
+import MyFollower from '../components/MyFollower'
+import MyFriend from '../components/MyFriend'
 import MyContent from '../components/MyContent'
 import DetailContent from '../components/DetailContent'
 import Post from '../components/SendPost'
@@ -41,6 +43,22 @@ const router = new Router({
             path: 'detail-content',
             name: 'detail-content',
             component: DetailContent,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: 'my-fllower',
+            name: 'my-fllower',
+            component: MyFollower,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: 'my-friend',
+            name: 'my-friend',
+            component: MyFriend,
             meta: {
                 requiresAuth: true
             }

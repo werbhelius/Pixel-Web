@@ -12,6 +12,8 @@ import at_me_status from './modules/at_me_status'
 import at_me_comment from './modules/at_me_comment'
 import receive_comment from './modules/receive_comment'
 import send_comment from './modules/send_comment'
+import my_follower from './modules/my_follower'
+import my_friend from './modules/my_friend'
 import * as getters from './getters'
 
 Vue.use(Vuex)
@@ -30,6 +32,8 @@ export default new Vuex.Store({
         at_me_status,
         at_me_comment,
         receive_comment,
-        send_comment
+        send_comment,
+        my_follower,
+        my_friend
     }
 })

@@ -10,8 +10,8 @@
             <div class="header-info">
                 <nav class="info-tab">
                     <span class="info-tag" v-on:click="switchTab('home')" >微博 {{formatNum(userInfo.statuses_count)}}</span>
-                    <span class="info-tag" v-on:click="switchTab('explore')" >关注 {{formatNum(userInfo.friends_count)}}</span>
-                    <span class="info-tag" v-on:click="switchTab('message')" >粉丝 {{formatNum(userInfo.followers_count)}}</span>
+                    <span class="info-tag" v-on:click="showMyFriend" >关注 {{formatNum(userInfo.friends_count)}}</span>
+                    <span class="info-tag" v-on:click="showMyFollower" >粉丝 {{formatNum(userInfo.followers_count)}}</span>
                 </nav>
             </div>
         </div>
@@ -54,6 +54,12 @@ export default {
         ]),
         showMyContent() {
             this.$router.push({ name: 'myContent' })
+        },
+        showMyFollower() {
+            this.$router.push({ name: 'my-fllower' })
+        },
+        showMyFriend() {
+            this.$router.push({ name: 'my-friend' })
         },
         goBack() {
             this.$router.go(-2)

@@ -20,4 +20,8 @@ export const RECEIVE_COMMENT = 'receive_comment'
 export const RECEIVE_COMMENT_REFRESH = 'receive_comment_refresh'
 export const SEND_COMMENT = 'send_comment'
 export const SEND_COMMENT_REFRESH = 'send_comment_refresh'
+export const MY_FOLLOWER = 'my_follower'
+export const MY_FOLLOWER_REFRESH = 'my_follower_refresh'
+export const MY_FRIEND = 'my_friend'
+export const MY_FRIEND_REFRESH = 'my_friend_refresh'
 

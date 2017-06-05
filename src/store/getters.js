@@ -20,3 +20,7 @@ export const receive_comment = state => state.receive_comment.comments
 export const receive_comment_refresh = state => state.receive_comment.refresh
 export const send_comment = state => state.send_comment.comments
 export const send_comment_refresh = state => state.send_comment.refresh
+export const my_follower = state => state.my_follower.users
+export const my_follower_refresh = state => state.my_follower.refresh
+export const my_friend = state => state.my_friend.users
+export const my_friend_refresh = state => state.my_friend.refresh
