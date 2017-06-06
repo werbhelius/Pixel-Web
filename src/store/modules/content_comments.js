@@ -8,7 +8,10 @@ import { logger } from '../../utils/logger'
 
 const state = {
     comments: [],
-    refresh: false
+    option: {
+        refresh: false,
+        page: 1
+    }
 }
 
 const mutations = {
@@ -16,10 +19,14 @@ const mutations = {
     [CONTENT_COMMENTS](state, data) {
         //save in state
         state.comments = data
+        state.option.page++
         logger('content-comments', 'save store succeed !')
     },
 
     [CONTENT_COMMENTS_REFRESH](state, refresh) {
+        if (refresh) {
+            state.option.page = 1
+        }
         state.refresh = refresh
         logger('content-comments-refresh', refresh)
     }

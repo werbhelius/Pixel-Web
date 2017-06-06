@@ -8,7 +8,10 @@ import { logger } from '../../utils/logger'
 
 const state = {
     statuses: [],
-    refresh: false
+    option: {
+        refresh: false,
+        page: 1
+    }
 }
 
 const mutations = {
@@ -16,11 +19,15 @@ const mutations = {
     [AT_ME_STATUS](state, data) {
         //save in state
         state.statuses = data
+        state.option.page++
         logger('at_me_status', 'save store succeed !')
     },
 
     [AT_ME_STATUS_REFRESH](state, refresh) {
-        state.refresh = refresh
+        if (refresh) {
+            state.option.page = 1
+        }
+        state.option.refresh = refresh
         logger('at_me_status', refresh)
     }
 

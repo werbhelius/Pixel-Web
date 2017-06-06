@@ -8,7 +8,10 @@ import { logger } from '../../utils/logger'
 
 const state = {
     comments: [],
-    refresh: false
+    option: {
+        refresh: false,
+        page: 1
+    }
 }
 
 const mutations = {
@@ -16,12 +19,16 @@ const mutations = {
     [AT_ME_COMMENT](state, data) {
         //save in state
         state.comments = data
+        state.option.page++
         logger('at_me_comment', 'save store succeed !')
     },
 
     [AT_ME_COMMENT_REFRESH](state, refresh) {
-        state.refresh = refresh
-        logger('at_me_comment', refresh)
+        if (refresh) {
+            state.option.page = 1
+        }
+        state.option.refresh = refresh
+        logger('at_me_comment', state.option.refresh)
     }
 
 
@@ -33,9 +40,9 @@ const actions = {
 
         console.log('getAtMeComment');
 
-        if (page == 1){
+        if (page == 1) {
             commit(AT_ME_COMMENT_REFRESH, true)
-        } else{
+        } else {
             commit(AT_ME_COMMENT_REFRESH, false)
         }
 

@@ -8,7 +8,10 @@ import { logger } from '../../utils/logger'
 
 const state = {
     statuses: [],
-    refresh: false
+    option: {
+        refresh: false,
+        page: 1
+    }
 }
 
 const mutations = {
@@ -16,11 +19,15 @@ const mutations = {
     [PUBLIC_TIMELINE](state, data) {
         //save in state
         state.statuses = data
+        state.option.page++
         logger('public-timeline', 'save store succeed !')
     },
 
     [PUBLIC_REFRESH](state, refresh) {
-        state.refresh = refresh
+        if(refresh){
+            state.option.page = 1
+        }
+        state.option.refresh = refresh
         logger('public-timeline-refresh', refresh)
     }
 

@@ -3,7 +3,7 @@
         <div class="list"  v-for="x in list">
             <pixel-content :x="x"></pixel-content>
         </div>
-        <div class="refresh-footer" v-if="loading">
+        <div class="refresh-footer" v-if="option.refresh">
             <pixel-spinner :size="'45px'" :color="'#007AFF'"></pixel-spinner>
         </div>
     </div>
@@ -12,54 +12,50 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 export default {
-  name: "at_me_status",
-  data() {
+    name: "at_me_status",
+    data() {
         return {
-            list: [],
-            loading: true,
-            page: 1
+            list: []
         };
     },
     computed: {
         ...mapGetters({
             statuses: 'at_me_status',
-            refresh: 'at_me_status_refresh',
+            option: 'at_me_status_option',
             showImage: 'image_zoom_show'
         })
     },
     watch: {
-        refresh: function (val) {
-            if (val == true) {
-                this.list = []
-                this.page = 1
-            }
+        option: {
+            handler: function (val, oldVal) {
+                if (val && val.page == 1) {
+                    this.list = []
+                }
+            },
+            deep: true
         },
         statuses: function (val, oldVal) {
             if (val) {
-                if (this.page == 1) {
+                if (this.option.page == 1) {
                     this.list = val;
                 } else {
                     this.list = [...this.list, ...val]
-                    this.page ++
                 }
-                this.loading = false
             }
         }
     },
     created() {
-        setTimeout(() => {
-            this.atMeStatus(this.page)
-        }, 1500)
+        this.atMeStatus(1)
     },
     mounted() {
-        
+
     },
     activated() {
-		window.addEventListener('scroll', this.scrollBar)
-	},
-	deactivated() {
-		 window.removeEventListener('scroll', this.scrollBar)
-	},
+        window.addEventListener('scroll', this.scrollBar)
+    },
+    deactivated() {
+        window.removeEventListener('scroll', this.scrollBar)
+    },
     methods: {
         ...mapActions([
             'getAtMeStatus'
@@ -69,11 +65,9 @@ export default {
         },
         loadMore() {
             let vue = this
-            this.loading = true
-            setTimeout(() => {
-                var page = this.page + 1
-                vue.atMeStatus(page)
-            }, 1500)
+            vue.option.refresh = true
+            var page = vue.option.page + 1
+            vue.atMeStatus(page)
         },
         scrollBar() {
             var a = document.documentElement.scrollTop == 0 ? document.body.clientHeight : document.documentElement.clientHeight;
@@ -88,7 +82,6 @@ export default {
 </script>
  
 <style lang="css">
-
 .atMeStatus .list {
     flex: 1;
     background-color: #fff;
@@ -103,5 +96,4 @@ export default {
     margin-top: .8rem;
     text-align: center;
 }
- 
 </style>

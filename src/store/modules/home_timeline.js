@@ -8,7 +8,10 @@ import { logger } from '../../utils/logger'
 
 const state = {
     statuses: [],
-    refresh: false
+    option: {
+        refresh: false,
+        page: 1
+    }
 }
 
 const mutations = {
@@ -16,29 +19,28 @@ const mutations = {
     [HOME_TIMELINE](state, data) {
         //save in state
         state.statuses = data
+        state.option.page++
         logger('home-timeline', 'save store succeed !')
     },
 
     [HOME_REFRESH](state, refresh) {
-        state.refresh = refresh
-        logger('home-timeline-refresh', refresh)
+        if(refresh){
+            state.option.page = 1
+        }
+        state.option.refresh = refresh
+        logger('home-timeline-refresh', state.option.refresh)
     }
-
-
 }
 
 const actions = {
 
     getHomeTimeline: ({ commit }, page) => {
-
-        console.log('getHomeTimeline');
-
-        if (page == 1){
+        console.log('getHomeTimeline')
+        if (page == 1) {
             commit(HOME_REFRESH, true)
-        } else{
+        }else {
             commit(HOME_REFRESH, false)
         }
-
         api.getHomeTimeline(
             page,
             response => {

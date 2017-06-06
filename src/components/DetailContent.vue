@@ -14,11 +14,10 @@
             <span class="detail-switch-tag"></span>
              <span class="detail-switch-tag"></span>
         </nav>
-        <div class="comment-list" v-for="comment in list">
-            <pixel-comment :comment="comment"></pixel-comment>
-        </div>
-        <div class="refresh-footer" v-if="loading">
-            <pixel-spinner :size="'45px'" :color="'#007AFF'"></pixel-spinner>
+        <div id="comment">
+            <transition name="fade">
+                <router-view></router-view>
+            </transition>
         </div>
     </div>
 </template>
@@ -28,84 +27,23 @@ import { mapActions, mapGetters } from 'vuex'
 import * as StringUtils from '../utils/string-utils'
 export default {
     name: "detail-content",
-    data() {
-        return {
-            list: [],
-            loading: true,
-            page: 1
-        };
-    },
     computed: {
         ...mapGetters({
-            detail_content: 'detail_content',
-            comments: 'comments',
-            refresh: 'comments_refresh'
+            detail_content: 'detail_content'
         })
     },
-    watch: {
-        refresh: function (val) {
-            if (val == true) {
-                this.list = []
-                this.page = 1
-            }
-        },
-        comments: function (val, oldVal) {
-            if (val) {
-                if (this.page == 1) {
-                    this.list = val
-                } else {
-                    this.list = [...this.list, ...val]
-                    this.page++
-                }
-                this.loading = false
-            }
-        }
-    },
     activated() {
-        this.list = []
-        this.page = 1
-        setTimeout(() => {
-            this.contentComments(this.page)
-        }, 1500)
-        window.addEventListener('scroll', this.scrollBar)
+        this.showContentComment()
     },
     deactivated() {
-        this.loading = true
-        window.removeEventListener('scroll', this.scrollBar)
+       
     },
     methods: {
-        ...mapActions([
-            'getContentComments'
-        ]),
-        formatNum(num) {
-            return StringUtils.formatNum(num)
+        showContentComment() {
+            this.$router.push({ name: 'content-comment' })
         },
         goBack() {
             this.$router.go(-1)
-        },
-        contentComments(page) {
-            this.getContentComments(
-                {
-                    id: this.detail_content.id,
-                    page: page
-                }
-            )
-        },
-        loadMore() {
-            let vue = this
-            this.loading = true
-            setTimeout(() => {
-                var page = this.page + 1
-                vue.contentComments(page)
-            }, 1500)
-        },
-        scrollBar() {
-            var a = document.documentElement.scrollTop == 0 ? document.body.clientHeight : document.documentElement.clientHeight;
-            var b = document.documentElement.scrollTop == 0 ? document.body.scrollTop : document.documentElement.scrollTop;
-            var c = document.documentElement.scrollTop == 0 ? document.body.scrollHeight : document.documentElement.scrollHeight;
-            if (a + b == c) {
-                this.loadMore()
-            }
         }
     }
 }
@@ -175,9 +113,5 @@ export default {
     color: #007AFF;
     font-size: 1rem;
     margin-left: .3rem;
-}
-
-.comment-list {
-    box-shadow: 1px rgba(0, 0, 0, .05);
 }
 </style>

@@ -15,6 +15,7 @@ import MyFollower from '../components/MyFollower'
 import MyFriend from '../components/MyFriend'
 import MyContent from '../components/MyContent'
 import DetailContent from '../components/DetailContent'
+import ContentComment from '../components/ContentComment'
 import Post from '../components/SendPost'
 import ImageZoom from '../components/ImageZoom'
 import store from '../store/'
@@ -45,7 +46,15 @@ const router = new Router({
             component: DetailContent,
             meta: {
                 requiresAuth: true
-            }
+            },
+            children: [{
+                path: 'content-comment',
+                name: 'content-comment',
+                component: ContentComment,
+                meta: {
+                    requiresAuth: true
+                }
+            }]
         },
         {
             path: 'my-fllower',
@@ -165,7 +174,6 @@ let routerList = []
 router.beforeEach((to, from, next) => {
 
     let position = scrollUtils.getScrollTop()
-    console.log('before ' + position)
     let currentRouterIndex = routerList.findIndex(e => {
         return e.path === from.fullPath
     })
@@ -210,10 +218,6 @@ router.afterEach((to, from, next) => {
             scrollUtils.setScrollTop(0)
         })
     }
-
-    console.log(window.pageYOffset || document.documentElement.scrollTop
-        || document.body.scrollTop)
-
 })
 
 export default router

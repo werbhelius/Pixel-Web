@@ -81,7 +81,7 @@ export default {
         refresh() {
             switch (this.currentPage) {
                 case 'home':
-                    this.getHomeTimeline(1);
+                    this.getHomeTimeline(1)
                     break;
                 case 'explore':
                     this.getPublicTimeline(1);

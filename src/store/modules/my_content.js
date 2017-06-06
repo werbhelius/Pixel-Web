@@ -8,7 +8,10 @@ import { logger } from '../../utils/logger'
 
 const state = {
     statuses: [],
-    refresh: false
+    option: {
+        refresh: false,
+        page: 1
+    }
 }
 
 const mutations = {
@@ -20,6 +23,9 @@ const mutations = {
     },
 
     [PROFILE_REFRESH](state, refresh) {
+        if (refresh) {
+            state.option.page = 1
+        }
         state.refresh = refresh
         logger('my-content', refresh)
     }

@@ -11,7 +11,7 @@
         <div class="follower-list" v-for="user in list">
             <pixel-user :user="user"></pixel-user>
         </div>
-        <div class="refresh-footer" v-if="loading">
+        <div class="refresh-footer"  v-if="option.refresh">
             <pixel-spinner :size="'45px'" :color="'#007AFF'"></pixel-spinner>
         </div>
     </div>
@@ -23,40 +23,36 @@ export default {
     name: "my-follower",
     data() {
         return {
-            list: [],
-            loading: true,
-            cursor: 1
+            list: []
         };
     },
     computed: {
         ...mapGetters({
-            comments: 'my_follower',
-            refresh: 'my_follower_refresh'
+            users: 'my_follower',
+            option: 'my_follower_option'
         })
     },
     watch: {
-        refresh: function (val) {
-            if (val == true) {
-                this.list = []
-                this.cursor = 1
-            }
+        option: {
+            handler: function (val, oldVal) {
+                if (val && val.cursor == 1) {
+                    this.list = []
+                }
+            },
+            deep: true
         },
-        comments: function (val, oldVal) {
+        users: function (val, oldVal) {
             if (val) {
-                if (this.cursor == 1) {
+                if (this.option.cursor == 1) {
                     this.list = val;
                 } else {
                     this.list = [...this.list, ...val]
-                    this.cursor++
                 }
-                this.loading = false
             }
         }
     },
     created() {
-        setTimeout(() => {
-            this.myFollower(this.cursor)
-        }, 1500)
+        this.myFollower(0)
     },
     mounted() {
 
@@ -71,7 +67,7 @@ export default {
         ...mapActions([
             'getMyFollower'
         ]),
-        goBack(){
+        goBack() {
             this.$router.go(-1)
         },
         myFollower(cursor) {
@@ -79,17 +75,15 @@ export default {
         },
         loadMore() {
             let vue = this
-            this.loading = true
-            setTimeout(() => {
-                var cursor = this.cursor + 1
-                vue.myFollower(cursor)
-            }, 1500)
+            vue.option.refresh = true
+            var cursor = vue.option.cursor + 1
+            vue.myFollower(cursor)
         },
         scrollBar() {
             var a = document.documentElement.scrollTop == 0 ? document.body.clientHeight : document.documentElement.clientHeight;
             var b = document.documentElement.scrollTop == 0 ? document.body.scrollTop : document.documentElement.scrollTop;
             var c = document.documentElement.scrollTop == 0 ? document.body.scrollHeight : document.documentElement.scrollHeight;
-            if (a + b == c && !this.showImage) {
+            if (a + b == c) {
                 this.loadMore();
             }
         }
@@ -156,5 +150,4 @@ export default {
     margin-top: .8rem;
     text-align: center;
 }
-
 </style>

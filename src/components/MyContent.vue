@@ -3,7 +3,7 @@
         <div class="list"  v-for="x in list">
             <pixel-content :x="x"></pixel-content>
         </div>
-        <div class="refresh-footer" v-if="loading">
+        <div class="refresh-footer" v-if="option.refresh">
             <pixel-spinner :size="'45px'" :color="'#007AFF'"></pixel-spinner>
         </div>
     </div>
@@ -15,41 +15,37 @@ export default {
     name: "home",
     data() {
         return {
-            list: [],
-            loading: true,
-            page: 1
+            list: []
         };
     },
     computed: {
         ...mapGetters({
             statuses: 'my_content',
-            refresh: 'my_content_refresh',
+            option: 'my_content_option',
             showImage: 'image_zoom_show'
         })
     },
     watch: {
-        refresh: function (val) {
-            if (val == true) {
-                this.list = []
-                this.page = 1
-            }
+        option: {
+            handler: function (val, oldVal) {
+                if (val && val.page == 1) {
+                    this.list = []
+                }
+            },
+            deep: true
         },
         statuses: function (val, oldVal) {
             if (val) {
-                if (this.page == 1) {
-                    this.list = val
+                if (this.option.page == 1) {
+                    this.list = val;
                 } else {
                     this.list = [...this.list, ...val]
-                    this.page++
                 }
-                this.loading = false
             }
         }
     },
     created() {
-        setTimeout(() => {
-            this.myContent(this.page)
-        }, 1500)
+        this.myContent(1)
     },
     mounted() {
 
@@ -69,11 +65,9 @@ export default {
         },
         loadMore() {
             let vue = this
-            this.loading = true
-            setTimeout(() => {
-                var page = this.page + 1
-                vue.myContent(page)
-            }, 1500)
+            vue.option.refresh = true
+            var page = vue.option.page + 1
+            vue.myContent(page)
         },
         scrollBar() {
             var a = document.documentElement.scrollTop == 0 ? document.body.clientHeight : document.documentElement.clientHeight;

@@ -3,7 +3,7 @@
         <div class="list" v-for="comment in list">
             <pixel-at-me-comment :comment="comment"></pixel-at-me-comment> 
         </div>
-        <div class="refresh-footer" v-if="loading">
+        <div class="refresh-footer" v-if="option.refresh">
             <pixel-spinner :size="'45px'" :color="'#007AFF'"></pixel-spinner>
         </div>
     </div>
@@ -15,40 +15,36 @@ export default {
     name: "at_me_status",
     data() {
         return {
-            list: [],
-            loading: true,
-            page: 1
+            list: []
         };
     },
     computed: {
         ...mapGetters({
             comments: 'at_me_comment',
-            refresh: 'at_me_comment_refresh',
+            option: 'at_me_comment_option',
         })
     },
     watch: {
-        refresh: function (val) {
-            if (val == true) {
-                this.list = []
-                this.page = 1
-            }
+        option: {
+            handler: function (val, oldVal) {
+                if (val && val.page == 1) {
+                    this.list = []
+                }
+            },
+            deep: true
         },
         comments: function (val, oldVal) {
             if (val) {
-                if (this.page == 1) {
-                    this.list = val
+                if (this.option.page == 1) {
+                    this.list = val;
                 } else {
                     this.list = [...this.list, ...val]
-                    this.page ++
                 }
-                this.loading = false
             }
         }
     },
     created() {
-        setTimeout(() => {
-            this.atMeComment(this.page)
-        }, 1500)
+        this.atMeComment(1)
     },
     mounted() {
 
@@ -68,11 +64,9 @@ export default {
         },
         loadMore() {
             let vue = this
-            this.loading = true
-            setTimeout(() => {
-                var page = this.page + 1
-                vue.atMeComment(page)
-            }, 1500)
+            vue.option.refresh = true
+            var page = vue.option.page + 1
+            vue.atMeComment(page)
         },
         scrollBar() {
             var a = document.documentElement.scrollTop == 0 ? document.body.clientHeight : document.documentElement.clientHeight;
@@ -101,6 +95,4 @@ export default {
     margin-top: .8rem;
     text-align: center;
 }
-
-
 </style>

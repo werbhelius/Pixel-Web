@@ -8,7 +8,10 @@ import { logger } from '../../utils/logger'
 
 const state = {
     users: [],
-    refresh: false
+    option: {
+        refresh: false,
+        cursor: 1
+    }
 }
 
 const mutations = {
@@ -16,10 +19,14 @@ const mutations = {
     [MY_FOLLOWER](state, data) {
         //save in state
         state.users = data
+        state.option.cursor++
         logger('my_follower', 'save store succeed !')
     },
 
     [MY_FOLLOWER_REFRESH](state, refresh) {
+        if(refresh){
+            state.option.cursor = 1
+        }
         state.refresh = refresh
         logger('my_follower', refresh)
     }
