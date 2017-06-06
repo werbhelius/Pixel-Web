@@ -37,10 +37,12 @@ export default {
         statuses: function (val, oldVal) {
             if (val) {
                 if (this.page == 1) {
-                    this.list = val;
+                    this.list = val
                 } else {
                     this.list = [...this.list, ...val]
+                    this.page++
                 }
+                this.loading = false
             }
         }
     },
@@ -50,14 +52,14 @@ export default {
         }, 1500)
     },
     mounted() {
-        
+
     },
     activated() {
-		window.addEventListener('scroll', this.scrollBar)
-	},
-	deactivated() {
-		 window.removeEventListener('scroll', this.scrollBar)
-	},
+        window.addEventListener('scroll', this.scrollBar)
+    },
+    deactivated() {
+        window.removeEventListener('scroll', this.scrollBar)
+    },
     methods: {
         ...mapActions([
             'getMyContent'
@@ -69,8 +71,8 @@ export default {
             let vue = this
             this.loading = true
             setTimeout(() => {
-                this.page++
-                vue.myContent(this.page)
+                var page = this.page + 1
+                vue.myContent(page)
             }, 1500)
         },
         scrollBar() {
@@ -78,7 +80,8 @@ export default {
             var b = document.documentElement.scrollTop == 0 ? document.body.scrollTop : document.documentElement.scrollTop;
             var c = document.documentElement.scrollTop == 0 ? document.body.scrollHeight : document.documentElement.scrollHeight;
             if (a + b == c && !this.showImage) {
-                this.loadMore();
+                console.log(a + b)
+                this.loadMore()
             }
         }
     }

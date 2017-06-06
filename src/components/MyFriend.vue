@@ -5,7 +5,7 @@
                 <svg class="close-icon" viewBox="0 0 46 72" style="display: inline-block; fill: currentcolor; position: relative; user-select: none; vertical-align: text-bottom;"><g><path d="M27.243 36l14.879-14.879a2.998 2.998 0 0 0 0-4.242 2.998 2.998 0 0 0-4.242 0L23 31.758 8.122 16.879a2.998 2.998 0 0 0-4.242 0 2.998 2.998 0 0 0 0 4.242L18.758 36 3.879 50.879A2.998 2.998 0 0 0 6.001 56a2.99 2.99 0 0 0 2.121-.879L23 40.242l14.879 14.879A2.991 2.991 0 0 0 40 56a2.998 2.998 0 0 0 2.121-5.121L27.243 36z"></path></g></svg>
             </div>
             <div class="friend-send" >
-                <span class="friend-text">我的粉丝</span>
+                <span class="friend-text">我的关注</span>
             </div>
         </div>
         <div class="friend-list" v-for="user in list">
@@ -47,7 +47,9 @@ export default {
                     this.list = val;
                 } else {
                     this.list = [...this.list, ...val]
+                    this.cursor ++
                 }
+                this.loading = false
             }
         }
     },
@@ -79,8 +81,8 @@ export default {
             let vue = this
             this.loading = true
             setTimeout(() => {
-                this.cursor++
-                vue.myFriend(this.cursor)
+                var cursor = this.cursor + 1
+                vue.myFriend(cursor)
             }, 1500)
         },
         scrollBar() {

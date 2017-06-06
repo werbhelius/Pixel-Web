@@ -47,7 +47,9 @@ export default {
                     this.list = val;
                 } else {
                     this.list = [...this.list, ...val]
+                    this.cursor++
                 }
+                this.loading = false
             }
         }
     },
@@ -79,8 +81,8 @@ export default {
             let vue = this
             this.loading = true
             setTimeout(() => {
-                this.cursor++
-                vue.myFollower(this.cursor)
+                var cursor = this.cursor + 1
+                vue.myFollower(cursor)
             }, 1500)
         },
         scrollBar() {

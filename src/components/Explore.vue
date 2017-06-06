@@ -40,7 +40,9 @@ export default {
                     this.list = val;
                 } else {
                     this.list = [...this.list, ...val]
+                    this.page ++
                 }
+                this.loading = false
             }
         }
     },
@@ -69,8 +71,8 @@ export default {
             let vue = this
             this.loading = true
             setTimeout(() => {
-                this.page++
-                vue.getPublicTimeline(this.page)
+                var page = this.page + 1
+                vue.getPublicTimeline(page)
             }, 1500)
         },
         scrollBar() {
@@ -78,7 +80,7 @@ export default {
             var b = document.documentElement.scrollTop == 0 ? document.body.scrollTop : document.documentElement.scrollTop;
             var c = document.documentElement.scrollTop == 0 ? document.body.scrollHeight : document.documentElement.scrollHeight;
             if (a + b == c && !this.showImage) {
-                this.loadMore();
+                this.loadMore()
             }
         }
     }

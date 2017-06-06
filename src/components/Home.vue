@@ -40,7 +40,9 @@ export default {
                     this.list = val;
                 } else {
                     this.list = [...this.list, ...val]
+                    this.page ++
                 }
+                this.loading = false
             }
         }
     },
@@ -69,8 +71,8 @@ export default {
             let vue = this
             this.loading = true
             setTimeout(() => {
-                this.page++
-                vue.homeTimeline(this.page)
+                var page = this.page ++
+                vue.homeTimeline(page)
             }, 1500)
         },
         scrollBar() {

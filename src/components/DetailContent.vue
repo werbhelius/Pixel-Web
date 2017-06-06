@@ -17,6 +17,9 @@
         <div class="comment-list" v-for="comment in list">
             <pixel-comment :comment="comment"></pixel-comment>
         </div>
+        <div class="refresh-footer" v-if="loading">
+            <pixel-spinner :size="'45px'" :color="'#007AFF'"></pixel-spinner>
+        </div>
     </div>
 </template>
  
@@ -49,24 +52,26 @@ export default {
         comments: function (val, oldVal) {
             if (val) {
                 if (this.page == 1) {
-                    this.list = val;
+                    this.list = val
                 } else {
                     this.list = [...this.list, ...val]
+                    this.page++
                 }
+                this.loading = false
             }
         }
     },
-    created() {
+    activated() {
+        this.list = []
+        this.page = 1
         setTimeout(() => {
             this.contentComments(this.page)
         }, 1500)
-    },
-    activated() {
-        this.contentComments(this.page)
+        window.addEventListener('scroll', this.scrollBar)
     },
     deactivated() {
-        this.list = []
-        this.page = 1
+        this.loading = true
+        window.removeEventListener('scroll', this.scrollBar)
     },
     methods: {
         ...mapActions([
@@ -85,6 +90,22 @@ export default {
                     page: page
                 }
             )
+        },
+        loadMore() {
+            let vue = this
+            this.loading = true
+            setTimeout(() => {
+                var page = this.page + 1
+                vue.contentComments(page)
+            }, 1500)
+        },
+        scrollBar() {
+            var a = document.documentElement.scrollTop == 0 ? document.body.clientHeight : document.documentElement.clientHeight;
+            var b = document.documentElement.scrollTop == 0 ? document.body.scrollTop : document.documentElement.scrollTop;
+            var c = document.documentElement.scrollTop == 0 ? document.body.scrollHeight : document.documentElement.scrollHeight;
+            if (a + b == c) {
+                this.loadMore()
+            }
         }
     }
 }

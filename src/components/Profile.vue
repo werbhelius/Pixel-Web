@@ -16,9 +16,9 @@
             </div>
         </div>
         <div id="content">
-                <transition name="fade">
-                    <router-view></router-view>
-                </transition>
+            <transition name="fade">
+                <router-view></router-view>
+            </transition>
         </div>
     </div>
 </template>

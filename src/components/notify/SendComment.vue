@@ -36,10 +36,12 @@ export default {
         comments: function (val, oldVal) {
             if (val) {
                 if (this.page == 1) {
-                    this.list = val;
+                    this.list = val
                 } else {
                     this.list = [...this.list, ...val]
+                    this.page ++
                 }
+                this.loading = false
             }
         }
     },
@@ -68,8 +70,8 @@ export default {
             let vue = this
             this.loading = true
             setTimeout(() => {
-                this.page++
-                vue.mySendComment(this.page)
+                var page = this.page + 1
+                vue.mySendComment(page)
             }, 1500)
         },
         scrollBar() {
