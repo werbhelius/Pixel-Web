@@ -27,9 +27,6 @@ const router = new Router({
         {
             path: '/splash',
             component: Splash,
-            meta: {
-                requiresAuth: true
-            }
         },
         {
             path: '/imageZoom',
@@ -189,6 +186,7 @@ router.beforeEach((to, from, next) => {
     } else {
         next()
     }
+    next()
 })
 
 router.afterEach((to, from, next) => {

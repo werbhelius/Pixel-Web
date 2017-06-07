@@ -50,6 +50,10 @@ export default {
             userInfo: 'userInfo'
         })
     },
+    activated() {
+        var div = this.$refs.sendText
+        div.innerHTML = ''
+    },
     methods: {
         sendText() {
             var self = this
