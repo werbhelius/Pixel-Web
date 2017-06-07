@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '../components/Login'
 import Main from '../components/Main'
 import Home from '../components/Home'
 import Explore from '../components/Explore'
@@ -15,7 +14,6 @@ import MyFollower from '../components/MyFollower'
 import MyFriend from '../components/MyFriend'
 import MyContent from '../components/MyContent'
 import DetailContent from '../components/DetailContent'
-import ContentComment from '../components/ContentComment'
 import Post from '../components/SendPost'
 import ImageZoom from '../components/ImageZoom'
 import store from '../store/'
@@ -27,13 +25,11 @@ const router = new Router({
     mode: 'history',
     routes: [
         {
-            path: '/login',
-            name: 'login',
-            component: Login
-        },
-        {
             path: '/splash',
-            component: Splash
+            component: Splash,
+            meta: {
+                requiresAuth: true
+            }
         },
         {
             path: '/imageZoom',
@@ -46,15 +42,7 @@ const router = new Router({
             component: DetailContent,
             meta: {
                 requiresAuth: true
-            },
-            children: [{
-                path: 'content-comment',
-                name: 'content-comment',
-                component: ContentComment,
-                meta: {
-                    requiresAuth: true
-                }
-            }]
+            }
         },
         {
             path: 'my-fllower',
@@ -195,7 +183,7 @@ router.beforeEach((to, from, next) => {
         }
         else {
             next({
-                path: '/login'
+                path: '/splash'
             })
         }
     } else {

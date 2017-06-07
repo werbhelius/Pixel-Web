@@ -27,7 +27,7 @@ const mutations = {
         if(refresh){
             state.option.cursor = 1
         }
-        state.refresh = refresh
+        state.option.refresh = refresh
         logger('my_follower', refresh)
     }
 

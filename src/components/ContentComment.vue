@@ -1,6 +1,6 @@
 <template lang="html">
     <div class="content-comment">
-        <div class="list" v-for="comment in list">
+        <div class="commentlist" v-for="comment in list">
             <pixel-comment :comment="comment"></pixel-comment>
         </div>
         <div class="refresh-footer" v-if="option.refresh">
@@ -46,12 +46,13 @@ export default {
     },
     created() {
         this.contentComments(1)
+        window.addEventListener('scroll', this.scrollBar)
     },
     activated() {
+        this.contentComments(1)
         window.addEventListener('scroll', this.scrollBar)
     },
     deactivated() {
-        this.loading = true
         window.removeEventListener('scroll', this.scrollBar)
     },
     methods: {
@@ -88,12 +89,10 @@ export default {
 </script>
  
 <style lang="css">
-.content-comment .list {
+.content-comment .commentlist {
     flex: 1;
     background-color: #fff;
     border-radius: 2px;
-    padding: 1rem;
-    margin-bottom: .8rem;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
 }
 

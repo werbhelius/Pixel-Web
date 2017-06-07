@@ -11,7 +11,6 @@ import router from './router/router'
 import store from './store/'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
-import vueScrollBehavior from 'vue-scroll-behavior'
 
 
 

@@ -1,7 +1,7 @@
 const key_config = {
     app_key: '3436445128',
     app_secret: '6a1d41d969da490d9a37d4457184ea0b',
-    redirect_uri: 'http://192.168.1.104:8089/login'
+    redirect_uri: 'http://192.168.1.104:8089/splash'
 }
 
 const host_config = {

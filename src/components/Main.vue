@@ -121,7 +121,7 @@ export default {
     width: 4.3rem;
     height: 4.3rem;
     border-radius: 50%;
-    background-color: #FF534B;
+    background-color: #007AFF;
     position: fixed;
     top: 84vh;
     right: 2rem;
@@ -206,8 +206,8 @@ export default {
 }
 
 .main .switch-tab .tab-tag.tab-select {
-    color: #FF534B;
-    border-bottom: 2px solid #FF534B;
+    color: #007AFF;
+    border-bottom: 2px solid #007AFF;
 }
 
 

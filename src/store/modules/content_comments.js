@@ -27,7 +27,7 @@ const mutations = {
         if (refresh) {
             state.option.page = 1
         }
-        state.refresh = refresh
+        state.option.refresh = refresh
         logger('content-comments-refresh', refresh)
     }
 
