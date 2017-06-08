@@ -21,6 +21,10 @@
 ![pixel-web-two](./screenshots/pixel-web-two.png)
 ![pixel-web-three](./screenshots/pixel-web-three.png)
 
+## Run
+`npm install`
+`npm run dev`
+
 ### Tips
 * 在开始前需要在新浪开放平台注册应用
 * 我选择的是 微连接 - 网页应用 
