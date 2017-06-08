@@ -21,11 +21,11 @@
 ![pixel-web-two](./screenshots/pixel-web-two.png)
 ![pixel-web-three](./screenshots/pixel-web-three.png)
 
-## Run
-* 请在 Chrome 手机模式下调试
-
+### Run
+ 请在 Chrome 手机模式下调试
 
 `npm install`
+
 `npm run dev`
 
 ### Tips
