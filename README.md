@@ -7,7 +7,7 @@
 
 ### Intro
 * 我是一个前端小白，突发奇想自学 Vue ，前前后后写了一个月时间
-* 使用 vue-cli 构建、打包, 配合 vu e全家桶（vue、vuex、vue-router）进行编码
+* 使用 vue-cli 构建、打包, 配合 vue全家桶（vue、vuex、vue-router）进行编码
 * 使用 axios 进行资源请求
 * 使用 Node.js 对 api 进行二次封装解决跨域问题
 
