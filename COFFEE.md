@@ -10,8 +10,8 @@
 
 ### 请我喝一杯咖啡
 * 微信
-![微信](./screenshots/coffee-wx.png)
+<img src="./screenshots/coffee-wx.png" alt="screenshot" title="微信" width="200" height="200" />
 * 支付宝
-![微信](./screenshots/coffee-alipay.png)
+<img src="./screenshots/coffee-alipay.png" alt="screenshot" title="支付宝" width="200" height="200" />
 
 
