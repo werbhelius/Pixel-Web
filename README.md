@@ -22,6 +22,7 @@
 ![pixel-web-three](./screenshots/pixel-web-three.png)
 
 ## Run
+* 请在 Chrome 手机模式下调试
 `npm install`
 `npm run dev`
 
