@@ -11,7 +11,7 @@
 ### 请我喝一杯咖啡
 * 微信
 <img src="./screenshots/coffee-wx.png" alt="screenshot" title="微信" width="200" height="200" />
-* 支付宝
-<img src="./screenshots/coffee-alipay.png" alt="screenshot" title="支付宝" width="200" height="200" />
+* 支付宝
+<img src="./screenshots/coffee-alipay.png" alt="screenshot" title="支付宝" width="200" height="200" />
 
 
