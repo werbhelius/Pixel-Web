@@ -121,7 +121,7 @@ export default {
 }
 
 .notify .notify-tab .tab-tag.tab-select {
-    color: #FF534B;
+    color: #007AFF;
 }
 
 .notify .notify-content {
