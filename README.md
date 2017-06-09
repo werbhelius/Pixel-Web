@@ -43,7 +43,5 @@
 ### LICENSE
 [Apache License](./LICENSE)
 
-### Coffee
-[请我喝一杯咖啡](./COFFEE.md)
 
 
