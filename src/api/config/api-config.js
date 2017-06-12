@@ -1,11 +1,11 @@
 const key_config = {
     app_key: '3436445128',
     app_secret: '6a1d41d969da490d9a37d4457184ea0b',
-    redirect_uri: 'http://192.168.74.7:8089/splash'
+    redirect_uri: 'http://192.168.1.104:8089/splash'
 }
 
 const host_config = {
-    host: 'http://192.168.74.7:3000',
+    host: 'https://pixel-api.herokuapp.com/',
     oauth: 'https://open.weibo.cn/oauth2/authorize',
 }
 

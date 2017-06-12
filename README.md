@@ -4,6 +4,14 @@
 * Github项目地址：[https://github.com/Werb/Pixel-Web](https://github.com/Werb/Pixel-Web)
 * 欢迎关注我的微博：[wanbo-](http://weibo.com/singerwannber)
 
+### Tips
+* 无法访问此网站是因为需要在微博开放平台注册应用，我填的回调地址是我本机的ip的原因
+* 所以你需要先去微博注册一个应用
+* 注册我选择的是 微连接 - 网页应用 
+* 创建成功后保存 App Key 和 App Secret
+* 然后在控制台-应用信息-高级信息设置 OAuth2.0 授权回调页，用于我们在登录后回调到我们的网页中，即[api-config.js](./src/api/config/api-config.js)所配置的内容
+* [Pixel-Api](https://github.com/Werb/Pixel-Api) 服务器我已经部署到了 Heroku
+* 在线 Server 地址 [https://pixel-api.herokuapp.com/](https://pixel-api.herokuapp.com/)
 
 ### Intro
 * 我是一个前端小白，突发奇想自学 Vue ，前前后后写了一个月时间
@@ -27,12 +35,6 @@
 `npm install`
 
 `npm run dev`
-
-### Tips
-* 在开始前需要在新浪开放平台注册应用
-* 我选择的是 微连接 - 网页应用 
-* 创建成功后保存 App Key 和 App Secret
-* 然后设置 OAuth2.0 授权回调页，用于我们在登录后回调到我们的网页中，具体请看 [api-config.js](./src/api/config/api-config.js)
 
 ### Thanks
 * [daily-zhihu](https://github.com/walleeeee/daily-zhihu)
