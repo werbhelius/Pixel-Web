@@ -4,6 +4,11 @@
 * Github项目地址：[https://github.com/Werb/Pixel-Web](https://github.com/Werb/Pixel-Web)
 * 欢迎关注我的微博：[wanbo-](http://weibo.com/singerwannber)
 
+### Local Test
+* 增加本地 debug 模式，访问静态数据，无需连接服务器
+* debug 模式下没有翻页，发微博功能不能使用
+* 在 [api-config.js](./src/api/config/api-config.js) 中设置 DEBUG 字段，true 开启，false 关闭
+
 ### Tips
 * 无法访问此网站是因为需要在微博开放平台注册应用，我填的回调地址是我本机的ip的原因
 * 所以你需要先去微博注册一个应用
