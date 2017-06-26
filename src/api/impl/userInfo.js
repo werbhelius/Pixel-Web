@@ -1,12 +1,17 @@
 import axios from 'axios';
-import { HOST_CONCIG, API_ROUTER_CONFIG } from '../../api/config/api-config'
+import { HOST_CONCIG, API_ROUTER_CONFIG, DEBUG } from '../../api/config/api-config'
 import { logger } from '../../utils/logger'
 import store from '../../store/'
+import * as data from '../../assets/debug-data/getData'
 
 export const getUserInfo = (userId, userName, okCallback, errorCallback) => {
 
-    const accesstoken = store.getters.token.access_token
+    if (DEBUG) {
+        okCallback(data.userInfo)
+        return 
+    }
 
+    const accesstoken = store.getters.token.access_token
     var request_data = {
         access_token: accesstoken,
         uid: userId,

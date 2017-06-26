@@ -37,7 +37,7 @@
  
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import { HOST_CONCIG, KEY_CONFIG } from '../api/config/api-config'
+import { HOST_CONCIG, KEY_CONFIG, DEBUG } from '../api/config/api-config'
 import { getUrlKey } from '../utils/string-utils'
 require('particles.js')
 export default {
@@ -87,10 +87,15 @@ export default {
             }
         },
         oauth() {
-            var client_id = KEY_CONFIG.app_key;
-            var redirect_uri = KEY_CONFIG.redirect_uri;
-            var oauthUrl = HOST_CONCIG.oauth;
-            window.open(oauthUrl + '?client_id=' + client_id + '&redirect_uri=' + redirect_uri, "_self", "", true);
+            var vue = this
+            if (DEBUG) {
+                vue.goMain()
+            } else {
+                var client_id = KEY_CONFIG.app_key;
+                var redirect_uri = KEY_CONFIG.redirect_uri;
+                var oauthUrl = HOST_CONCIG.oauth;
+                window.open(oauthUrl + '?client_id=' + client_id + '&redirect_uri=' + redirect_uri, "_self", "", true);
+            }
         },
         goMain() {
             let vue = this

@@ -16,6 +16,7 @@ const mutations = {
         //save in state
         state.userInfo = userInfo   
         logger('userinfo', 'save store succeed !')
+        console.log(userInfo)
         //save in localStorage
         saveUserInfo(userInfo)
     },

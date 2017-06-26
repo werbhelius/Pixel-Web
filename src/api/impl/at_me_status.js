@@ -1,10 +1,17 @@
 import axios from 'axios';
-import { HOST_CONCIG, API_ROUTER_CONFIG } from '../../api/config/api-config'
+import { HOST_CONCIG, API_ROUTER_CONFIG, DEBUG } from '../../api/config/api-config'
 import { logger } from '../../utils/logger'
 import store from '../../store/'
-
+import * as data from '../../assets/debug-data/getData'
 
 export const getAtMeStatus = (page, okCallback, errorCallback) => {
+
+    if (DEBUG) {
+        setTimeout(function () {
+            okCallback(data.atmestatus)
+        }, 1500)
+        return 
+    }
 
     const accesstoken = store.getters.token.access_token
 

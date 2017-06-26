@@ -18,6 +18,7 @@ import Post from '../components/SendPost'
 import ImageZoom from '../components/ImageZoom'
 import store from '../store/'
 import * as scrollUtils from '../utils/scroll-position'
+import { DEBUG } from '../api/config/api-config'
 
 Vue.use(Router)
 
@@ -172,16 +173,20 @@ router.beforeEach((to, from, next) => {
         })
     }
 
+    store.dispatch('getToken')
     if (to.meta.requiresAuth) {
-        store.dispatch('getToken')
-        const login = store.getters.login
-        if (login) {
+        if (DEBUG) {
             next()
-        }
-        else {
-            next({
-                path: '/splash'
-            })
+        } else {
+            const login = store.getters.login
+            if (login) {
+                next()
+            }
+            else {
+                next({
+                    path: '/splash'
+                })
+            }
         }
     } else {
         next()
