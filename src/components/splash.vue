@@ -14,8 +14,8 @@
                 <div class="logining " :class="loginState?'show': ''">
                     <pixel-spinner :size="'45px'" :color="'#007AFF'"></pixel-spinner>
                 </div>
-                <button class="login" v-on:click="oauth">登录</button>
             </div>
+            <button class="login" v-on:click="oauth">登录</button>
             <div class="info-footer">
                 <div class="header">
                     <img class="avatar"   src="../assets/icon.png">
@@ -264,7 +264,7 @@ export default {
     opacity: 1;
 }
 
-.splash .info .info-content .login {
+.splash .info .login {
     width: 60vw;
     height: 3.5rem;
     background-color: #000000;
@@ -272,7 +272,8 @@ export default {
     margin-left: 20vw;
     border-radius: 25px;
     border-style: none;
-    margin-top: 6rem;
+    position: absolute;
+    bottom: 10rem;
 }
 
 .splash .info .info-footer {
@@ -314,7 +315,7 @@ export default {
     margin: 0;
     padding: 0;
     flex: 1;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 500;
 }
 
