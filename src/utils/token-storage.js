@@ -13,7 +13,7 @@ export const saveToken = (token) => {
 export const clearToken = () => {
   const localStorage = window.localStorage
   try {
-    if (!localStorage.getItem('token')) {
+    if (localStorage.getItem('token') != null) {
       localStorage.removeItem('token');
       logger('localStorage-clear-token', 'token clear')
     }
